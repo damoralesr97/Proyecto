@@ -242,3 +242,50 @@ body {
     color: whitesmoke;
     text-align: center;
 }
+
+/* Estilos para la pagina mi_cuenta.html */
+
+.contenidoMiCuenta{
+    margin: 20px 0px;
+    width: 100%;
+    float: left;
+}
+
+.formulario{
+    text-align: left;
+    width: 47%;
+    float: left;
+    margin: 15px 10px;
+    padding: 15px 10px;
+}
+
+.formulario h4{
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.formulario label, .formulario input{
+    display: block;
+}
+
+.formulario label{
+    padding: 5px 0px;
+}
+
+.formulario .campo{
+    width: 90%;
+    height: 50px;
+    padding: 0px 15px;
+    background: whitesmoke;
+    margin-bottom: 20px;
+}
+
+.formulario input[type="submit"]{
+    border: 1px solid red;  
+    background: #E74C3C;
+    border-radius: 5px;
+    width: 150px;
+    padding: 10px 0;
+    color: white;
+    font-weight: bold;
+}
