@@ -1,0 +1,244 @@
+/* ESTILOS PARA LA CABECERA */
+
+* {
+    font-family: sans-serif;
+}
+
+.topHeader{
+    width: 100%;
+    text-align: right;
+    margin: auto;
+}
+
+.topHeader a{
+    text-decoration: none;
+    color: black;
+}
+
+.topHeader a:hover{
+    color: #E74C3C;
+}
+
+.nombreUser{
+    font-weight: bold;
+}
+
+.encabezado{
+    background:#CFD8DC;
+    width: 100%;
+    height: 47px;
+    margin: auto;
+}
+
+.menu {
+    min-width: 50%;
+    width: 40%;
+    float: left;
+}
+
+.menu ul{
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul {
+    list-style: none;
+}
+
+
+.menu a{
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.menu > ul > li > a{
+    background: none;
+    color: black;
+}
+
+.menu > ul > li > ul > li > a {
+    background: white;
+    color: black;
+    
+}
+
+.menu > ul > li{
+    width: 23%;
+    float: left;
+}
+
+.menu a:hover{
+    color: red;
+    text-decoration: underline;
+    background: #CFD8DC;
+}
+
+.menu li ul{
+    display: none ;
+    position: absolute;
+    min-width: 15%;
+}
+
+.menu li:hover > ul {
+    display: block;
+    border: 1px solid gray;
+}
+
+.busqueda{
+    width: 30%;
+    float: left;
+    padding: 3px 0px;
+}
+
+.busqueda #buscar{
+    width: 85%;
+    height: 40px;
+    padding: 0 15px;
+    border: 0.5px solid gray;
+    border-radius: 20px;
+    text-align: initial;
+}
+
+.busqueda a{
+    text-decoration: none;
+    border: none;
+    color: whitesmoke;
+    background: #E74C3C;
+    padding: 5px 3px;
+    border-radius: 10px;
+}
+
+.carrito{
+    float: left;
+    margin-left: 15px;
+}
+
+.carrito img{
+    width: 30px;
+    height: 30px;
+    padding: 10px 5px;
+    display: block;
+    float: left;
+}
+
+.carrito a{
+    text-decoration: none;
+    color: black;
+    display: block;
+    float: left;
+    padding: 14px 5px
+}
+
+.carrito i{
+    color: black;
+    font-weight: bold;
+    display: block;
+    float: left;
+    padding: 14px 5px
+}
+
+/* ESTILOS PARA EL BODY DE HOME.HTML */
+
+body {
+}
+
+.categorias{
+    width: 20%;
+    float: left;
+}
+
+.categorias h3{
+    margin-top: 5px;
+    padding: 15px 20px;
+    background: #E74C3C;
+    color: whitesmoke;
+}
+
+.categorias a{
+    text-decoration: none; 
+    color: black;
+}
+
+.categorias a:hover{ 
+    color: red;
+}
+
+.categorias ul{
+    list-style: none;
+    padding: 0 10px;
+}
+
+.categorias li{
+    margin: 5px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #CFD8DC;
+}
+
+.imagenesContenido{
+    padding: 10px 15px;
+    width: 77%;
+    height: 400px;
+    float: left;
+}
+
+.imagenesContenido #imagen{
+    width: 100%;
+    height: 390px;
+}
+
+.caracteristicas {
+    width: 75%;
+    float: right;
+    clear: both;
+    text-align: center;
+}
+
+.caracteristicas .cajaCarac{
+    border: 0.5px solid gray;
+    width: 27%;
+    float: left;
+    margin: 0px 20px;
+    padding: 15px 5px;
+}
+
+.caracteristicas .cajaCarac img{
+    width: 40px;
+    height: 40px;
+}
+
+.caracteristicas .cajaCarac h4{
+    color: #E74C3C;
+}
+
+/* ESTILOS PARA EL FOOTER*/
+
+.contenidoPie{
+    margin-top: 35px;
+    clear: both;
+    width: 100%;
+    background: #1C2833;
+    float: left; 
+}
+
+.infoPie{
+    width: 47%;
+    float: left;
+    margin: 0 20px;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.tituloDetalleInfoPie{
+    font-weight: bold;
+}
+
+.derechos{
+    border-top: 1px #CFD8DC solid;
+    width: 100%;
+    padding: 10px 0;
+    background: #1C2833;
+    clear: both;
+    color: whitesmoke;
+    text-align: center;
+}
