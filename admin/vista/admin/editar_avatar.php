@@ -10,13 +10,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Editar Contrasena - Ferreteria</title>
+        <title>Editar Avatar - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
     <header>
         <div class="topHeader">
-
+            
             <?php
                 $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
                 $stm = $conn->query($sqli);
@@ -27,13 +27,14 @@
                 }
             ?>
 
+
             <ul>
             <?php
                 $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
@@ -45,35 +46,19 @@
             </ul>
             </div>
             <div class="encabezado">
-                <nav class="menu">
-                    <ul>
-                        <li><a href="index.php">INICIO</a></li>
-                        <li><a href="">NOSOTROS</a>
-                            <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">PRODUCTOS</a></li>
-                        <li><a href="">CONTACTO</a></li>
-                    </ul>
-                </nav>
-                <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
-                </div>
-                <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
-                </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.php">INICIO</a></li>
+                    <li><a href="">LOCALES</a></li>
+                    <li><a href="">FACTURAS</a></li>
+                    <li><a href="">USUARIOS</a></li>
+                </ul>
+            </nav>
             </div>
         </header>
         <aside class="categorias">
             <h3>MENU</h3>
             <ul>
-                <li><a href="">PEDIDOS</a></li>
                 <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
                 <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
                 <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
@@ -81,15 +66,12 @@
             </ul>
         </aside>
 
-        <form class="formEditarPerfil" method="POST" action="../../controladores/user/editar_contrasena.php">
-            <h4>EDITAR MI CONTRASEÑA</h4>
-            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
-            <label>Contraseña anterior</label>
-            <input type="password" name="claveAnt" id="claveAnt" class="campoED">
-            <label>Contraseña nueva</label>
-            <input type="password" name="claveNueva" id="claveNueva" class="campoED">
-            <input type="submit" name="editar" id="editar" value="CAMBIAR CONTRASEÑA">
+        <form class="formEditAvatar" method="POST" action="../../controladores/admin/editar_avatar.php" enctype="multipart/form-data">
+            <h4>EDITAR AVATAR</h4>
+            <input type="file" name="avatarEd">
+            <input type="submit" name="aceptar" value="ACTUALIZAR AVATAR">
         </form>
+        
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

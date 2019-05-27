@@ -36,7 +36,7 @@
             }else{
                 echo "<p>La contrasena actual no coincide con nuestros registros!!!</p>";
             }
-            echo "<a href='../../vista/user/index.php'>Regresar</a>";
+            echo "<a href='../../vista/admin/index.php'>Regresar</a>";
             $conn->close();
         ?>
         </form>

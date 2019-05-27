@@ -410,3 +410,111 @@ body {
     color: white;
     font-weight: bold;
 }
+
+/* ESTILOS PARA LA PAGINA INDEX.HTML DE ADMINISTRADOR */
+.infoAdmin{
+    border: 1px solid black;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.infoAdmin h4{
+    color: black;
+    border-bottom: 1px solid gray;
+    padding-bottom: 15px;
+}
+
+.infoAdmin img{
+    width: 300px;
+    height: 300px;
+    margin: 20px 15px;
+    border-radius: 50%;
+    border: 2px solid #E74C3C;
+}
+
+.infoAdmin label, .infoAdmin p{
+    margin: 20px 0;
+}
+
+.infoAdmin label{
+    padding: 0 30px;
+    color: #E74C3C;
+    font-weight: bold;
+    border-bottom: 1px solid gray;
+}
+
+/* ESTILOS PARA LA PAGINA DE ADMIN PARA VISUALZIAR Y MODIFICAR LOCALES, LOCALES.PHP */
+.contenedorTabla{
+    width: 75%;
+    float: left;
+    padding: 10px 20px;
+}
+
+.tablaLocales, .tablaLocales th, .tablaLocales td{
+    border: 1px solid #1C2833;
+}
+
+.tablaLocales{
+    width: 100%;
+}
+
+.tablaLocales th{
+    background: #E74C3C;
+    color: white;
+}
+
+.tablaLocales td{
+    padding: 5px;
+}
+
+.tablaLocales a{
+    text-decoration: none;
+    color: #E74C3C;
+}
+
+.tablaLocales .accion:hover{
+    text-decoration: underline;
+    color: #E74C3C;
+    background: #CFD8DC;
+}
+
+/*ESTILOS PARA PAGINA ELEGIR_LOCAL.PHP*/
+.fondo{
+    background: #1C2833;
+}
+
+.elegirLocal{
+    margin: 20px 15px;
+}
+
+.elegirLocal table{
+    margin: auto;
+}
+
+.elegirLocal a{
+    text-decoration: none;
+    color: #E74C3C;
+    padding: 0 35px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.elegirLocal a:hover{
+    text-decoration: underline;
+    color: white;
+    padding: 0 35px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.elegirLocal .dirLoc,.elegirLocal td{
+    color: white;
+}
+
+.elegirLocal img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #E74C3C;
+}

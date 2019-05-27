@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Editar Contrasena - Ferreteria</title>
+        <title>Editar Perfil - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
@@ -33,47 +33,29 @@
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
-                    }
-                }
             ?>
             </ul>
             </div>
             <div class="encabezado">
-                <nav class="menu">
-                    <ul>
-                        <li><a href="index.php">INICIO</a></li>
-                        <li><a href="">NOSOTROS</a>
-                            <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">PRODUCTOS</a></li>
-                        <li><a href="">CONTACTO</a></li>
-                    </ul>
-                </nav>
-                <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
-                </div>
-                <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
-                </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.php">INICIO</a></li>
+                    <li><a href="">LOCALES</a></li>
+                    <li><a href="">FACTURAS</a></li>
+                    <li><a href="">USUARIOS</a></li>
+                </ul>
+            </nav>
             </div>
         </header>
         <aside class="categorias">
             <h3>MENU</h3>
             <ul>
-                <li><a href="">PEDIDOS</a></li>
                 <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
                 <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
                 <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
@@ -81,15 +63,29 @@
             </ul>
         </aside>
 
-        <form class="formEditarPerfil" method="POST" action="../../controladores/user/editar_contrasena.php">
-            <h4>EDITAR MI CONTRASEÑA</h4>
+        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/modificar.php">
+            <h4>EDITAR MI PERFIL</h4>
             <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
-            <label>Contraseña anterior</label>
-            <input type="password" name="claveAnt" id="claveAnt" class="campoED">
-            <label>Contraseña nueva</label>
-            <input type="password" name="claveNueva" id="claveNueva" class="campoED">
-            <input type="submit" name="editar" id="editar" value="CAMBIAR CONTRASEÑA">
+            <label>Nombres</label>
+            <input type="text" name="nombresEd" id="nombresEd" value="<?php echo $row["usu_nombres"] ?>" class="campoED">
+            <label>Apellidos</label>
+            <input type="text" name="apellidosEd" id="apellidosEd" value="<?php echo $row["usu_apellidos"] ?>" class="campoED">
+            <label>Nick</label>
+            <input type="text" name="nickEd" id="nickEd" value="<?php echo $row["usu_nick"] ?>" class="campoED">
+            <label>Telefono</label>
+            <input type="text" name="telefonoEd" id="telefonoEd" value="<?php echo $row["usu_telefono"] ?>" class="campoED">
+            <label>Correo</label>
+            <input type="text" name="mailEd" id="mailEd" value="<?php echo $row["usu_correo"] ?>" class="campoED">
+            <input type="submit" name="editar" id="editar" value="GUARDAR LOS CAMBIOS">
         </form>
+        <?php
+            }
+        }else{
+            echo "<p>Ha ocurrido un error inesperdado</p>";
+            echo "<p>".mysqli_error($conn)."</p>";
+        }
+        $conn->close();
+        ?>
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">
