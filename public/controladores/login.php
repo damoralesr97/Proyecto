@@ -11,13 +11,16 @@
 
     //Una vez verificado el correo y contrasena se inica una sesion y dependiendo del rol del usuario se envia a su index.html correspondiente
     if ($result->num_rows > 0 ){
-        $_SESSION['isLogged']=TRUE;
         while($row = $result->fetch_assoc()){
             $codigo = $row["usu_codigo"];
             if ($row["rol_usu_codigo"]==1){
-                header("Location: ../../admin/vista/admin/index.php?codigo_admin=".$row['usu_codigo']);
+                $_SESSION['usuario']=$row['usu_codigo'];
+                $_SESSION['rol']=$row['usu_rol_codigo'];
+                header("Location: ../../admin/vista/admin/index.php");
             }else{
-                header("Location: ../../admin/vista/user/index.php?codigo=".$row['usu_codigo']);
+                $_SESSION['usuario']=$row['usu_codigo'];
+                $_SESSION['rol']=$row['usu_rol_codigo'];
+                header("Location: ../../admin/vista/user/index.php");
             }
         }
     }else{

@@ -7,6 +7,10 @@
     <body>
         <form>
         <?php
+            session_start();
+            if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+                header("Location: /Practicas/Proyecto/public/vista/home.html");
+            }
             //Incluir conexion a la base de datos
             include '../../../config/conexionBD.php';
 
@@ -27,7 +31,7 @@
             }else{
                 echo "Error: ".$sql."<br>".mysqli_error($conn)."<br>";
             }
-            echo "<a href='../../vista/user/index.php?codigo=".$codigo."'>Regresar</a>";
+            echo "<a href='../../vista/user/index.php'>Regresar</a>";
 
             $conn->close();
         ?>

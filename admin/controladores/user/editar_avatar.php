@@ -1,7 +1,10 @@
 <?php
-
+    session_start();
+    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+        header("Location: /Practicas/Proyecto/public/vista/home.html");
+    }
     include '../../../config/conexionBD.php';
-    $codigo = $_GET["codigo"];
+    $codigo = $_SESSION['usuario'];
 
     $nombre = $_FILES['avatarEd']['name'];
     $tmp = $_FILES['avatarEd']['tmp_name'];
@@ -22,5 +25,5 @@
         echo 'Error!!!';
     }
 
-    echo "<a href='../../vista/user/index.php?codigo=".$codigo."'>Regresar</a>";
+    echo "<a href='../../vista/user/index.php'>Regresar</a>";
 ?>

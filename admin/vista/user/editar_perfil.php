@@ -1,6 +1,10 @@
 <?php
+    session_start();
+    $codigoUsr=$_SESSION['usuario'];
+    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+        header("Location: /Practicas/Proyecto/public/vista/home.html");
+    }
     include '../../../config/conexionBD.php';
-    $codigoUsr = $_GET["codigo"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +35,7 @@
                     while($row = $result->fetch_assoc()){
                         echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
                             <ul>
-                                <li><a href='editar_perfil.php?codigo=$codigoUsr'>Editar mi perfil</a></li>
+                                <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
@@ -41,7 +45,7 @@
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="index.php?codigo=<?php echo $codigoUsr ?>">INICIO</a></li>
+                        <li><a href="index.php">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
@@ -68,9 +72,9 @@
             <h3>MENU</h3>
             <ul>
                 <li><a href="">PEDIDOS</a></li>
-                <li><a href="editar_perfil.php?codigo=<?php echo $codigoUsr ?>">DETALLES DE LA CUENTA</a></li>
-                <li><a href="editar_avatar.php?codigo=<?php echo $codigoUsr ?>">CAMBIAR AVATAR</a></li>
-                <li><a href="editar_contrasena.php?codigo=<?php echo $codigoUsr ?>">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
+                <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
+                <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>

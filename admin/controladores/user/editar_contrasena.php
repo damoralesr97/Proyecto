@@ -8,6 +8,10 @@
     <body>
         <form>
         <?php
+            session_start();
+            if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+                header("Location: /Practicas/Proyecto/public/vista/home.html");
+            }
             //Incluir conexion a la BD
             include "../../../config/conexionBD.php";
 
@@ -32,7 +36,7 @@
             }else{
                 echo "<p>La contrasena actual no coincide con nuestros registros!!!</p>";
             }
-            echo "<a href='../../vista/user/index.php?codigo=".$codigo."'>Regresar</a>";
+            echo "<a href='../../vista/user/index.php'>Regresar</a>";
             $conn->close();
         ?>
         </form>

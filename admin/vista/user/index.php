@@ -1,6 +1,11 @@
 <?php
+    session_start();
+    $codigoUsr = $_SESSION['usuario'];
+    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+        header("Location: /Practicas/Proyecto/public/vista/home.html");
+    }
+    
     include '../../../config/conexionBD.php';
-    $codigoUsr = $_GET["codigo"];
 ?>
 <!Doctype html>
 <html>
@@ -63,7 +68,7 @@
                         while($row = $result->fetch_assoc()){
                             echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
                                 <ul>
-                                    <li><a href='editar_perfil.php?codigo=$codigoUsr'>Editar mi perfil</a></li>
+                                    <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                     <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                                 </ul>
                             </li>";
@@ -75,7 +80,7 @@
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="index.php?codigo=<?php echo $codigoUsr ?>">INICIO</a></li>
+                        <li><a href="index.php">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
