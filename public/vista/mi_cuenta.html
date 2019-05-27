@@ -37,7 +37,7 @@
             </div>
         </header>
         <div class="contenidoMiCuenta">
-            <form class="formulario">
+            <form class="formulario" method="POST" action="../controladores/login.php">
                 <h4>INICIAR SESION</h4>
                 <label>Direccion de email</label>
                 <input type="email" name="mailIS" id="mailIS" class="campo">
@@ -45,10 +45,20 @@
                 <input type="password" name="claveIS" id="claveIS" class="campo">
                 <input type="submit" name="btnIS" id="btnIS" value="INICIAR SESION">
             </form>
-            <form class="formulario">
+            <form class="formulario" method="POST" action="../controladores/registrar_usuario.php" enctype="multipart/form-data">
                 <h4>REGISTRARME</h4>
+                <label>Nombres</label>
+                <input type="text" name="nombresReg" id="nombresReg" class="campo">
+                <label>Apellidos</label>
+                <input type="text" name="apellidosReg" id="apellidosReg" class="campo">
                 <label>Direccion de email</label>
                 <input type="email" name="mailReg" id="mailReg" class="campo">
+                <label>Nick</label>
+                <input type="text" name="nickReg" id="nickReg" class="campo">
+                <label>Telefono</label>
+                <input type="text" name="telefonoReg" id="telefonoReg" class="campo">
+                <label>Avatar</label>
+                <input type="file" name="avatarReg" id="avatarReg" class="campo">
                 <label>Contrasena</label>
                 <input type="password" name="claveReg" id="claveReg" class="campo">
                 <label>Contrasena (Repetir)</label>

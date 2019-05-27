@@ -7,7 +7,17 @@
 .topHeader{
     width: 100%;
     text-align: right;
-    margin: auto;
+}
+
+.topHeader img{
+    width: 30px;
+    height: 30px;
+}
+
+.topHeader ul{
+    list-style: none;
+    width: 150px;
+    float: right;
 }
 
 .topHeader a{
@@ -21,6 +31,7 @@
 
 .nombreUser{
     font-weight: bold;
+    padding: 6px 2px;
 }
 
 .encabezado{
@@ -41,6 +52,11 @@
     margin: 0;
 }
 
+.topHeader ul{
+    padding: 0;
+    margin: 0;
+}
+
 .menu ul {
     list-style: none;
 }
@@ -49,6 +65,10 @@
 .menu a{
     text-decoration: none;
     padding: 10px 15px;
+    display: block;
+}
+
+.topHeader a{
     display: block;
 }
 
@@ -63,6 +83,12 @@
     
 }
 
+.topHeader > ul > li > ul > li > a{
+    padding: 10px 10px;
+    background: white;
+    color: black;
+}
+
 .menu > ul > li{
     width: 23%;
     float: left;
@@ -74,14 +100,31 @@
     background: #CFD8DC;
 }
 
+.topHeader > ul > li > ul > li > a:hover{
+    background: #CFD8DC;
+    text-decoration: underline;
+}
+
 .menu li ul{
     display: none ;
     position: absolute;
     min-width: 15%;
 }
 
+.topHeader li ul{
+    display: none;
+    position: absolute;
+    min-width: 10%;
+}
+
 .menu li:hover > ul {
     display: block;
+    border: 1px solid gray;
+}
+
+.topHeader li:hover > ul{
+    display: block;
+    right: 10px;
     border: 1px solid gray;
 }
 
@@ -285,6 +328,84 @@ body {
     background: #E74C3C;
     border-radius: 5px;
     width: 150px;
+    padding: 10px 0;
+    color: white;
+    font-weight: bold;
+}
+
+/* ESTILOS PARA LA PAGINA EDITAR_PERFIL.PHP */
+
+.formEditarPerfil{
+    text-align: left;
+    width: 75%;
+    float: left;
+    margin: 15px 10px;
+    padding: 15px 10px;
+}
+
+.formEditarPerfil h4{
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.formEditarPerfil label, .formEditarPerfil input{
+    display: block;
+}
+
+.formEditarPerfil label{
+    padding: 5px 0px;
+}
+
+.formEditarPerfil .campoED{
+    width: 90%;
+    height: 50px;
+    padding: 0px 15px;
+    background: whitesmoke;
+    margin-bottom: 20px;
+}
+
+.formEditarPerfil input[type="submit"]{
+    border: 1px solid red;  
+    background: #E74C3C;
+    border-radius: 5px;
+    width: 200px;
+    padding: 10px 0;
+    color: white;
+    font-weight: bold;
+}
+
+/* ESTILOS PARA LA PAGINA EDITAR_AVATAR.PHP */
+
+.formEditAvatar{
+    text-align: left;
+    width: 75%;
+    float: left;
+    margin: 15px 10px;
+    padding: 15px 10px;
+}
+
+.formEditAvatar h4{
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.formEditAvatar input{
+    display: block;
+}
+
+.formEditAvatar input[type="file"]{
+    width: 90%;
+    height: 30px;
+    padding: 0px 15px;
+    margin-bottom: 20px;
+}
+
+
+.formEditAvatar input[type="submit"]{
+    border: 1px solid red;  
+    background: #E74C3C;
+    border-radius: 5px;
+    width: 200px;
     padding: 10px 0;
     color: white;
     font-weight: bold;
