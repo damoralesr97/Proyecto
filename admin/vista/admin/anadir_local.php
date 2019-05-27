@@ -1,16 +1,17 @@
 <?php
     session_start();
-    $codigoUsr=$_SESSION['usuario'];
+    $codigoUsr = $_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
         header("Location: /Practicas/Proyecto/public/vista/elegir_local.php");
     }
+    
     include '../../../config/conexionBD.php';
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Editar Contrasena - Ferreteria</title>
+        <title>Locales - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
@@ -33,7 +34,7 @@
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
@@ -45,51 +46,42 @@
             </ul>
             </div>
             <div class="encabezado">
-                <nav class="menu">
-                    <ul>
-                        <li><a href="index.php">INICIO</a></li>
-                        <li><a href="">NOSOTROS</a>
-                            <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">PRODUCTOS</a></li>
-                        <li><a href="">CONTACTO</a></li>
-                    </ul>
-                </nav>
-                <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
-                </div>
-                <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
-                </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.php">INICIO</a></li>
+                    <li><a href="locales.php">LOCALES</a></li>
+                    <li><a href="">FACTURAS</a></li>
+                    <li><a href="">USUARIOS</a></li>
+                </ul>
+            </nav>
             </div>
         </header>
         <aside class="categorias">
-            <h3>MENU</h3>
+            <h3>LOCALES</h3>
             <ul>
-                <li><a href="">PEDIDOS</a></li>
-                <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
-                <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
-                <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="locales.php">DETALLES DE LOCALES</a></li>
+                <li><a href="anadir_local.php">AÑADIR LOCAL</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
-
-        <form class="formEditarPerfil" method="POST" action="../../controladores/user/editar_contrasena.php">
-            <h4>EDITAR MI CONTRASEÑA</h4>
-            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
-            <label>Contraseña anterior</label>
-            <input type="password" name="claveAnt" id="claveAnt" class="campoED">
-            <label>Contraseña nueva</label>
-            <input type="password" name="claveNueva" id="claveNueva" class="campoED">
-            <input type="submit" name="editar" id="editar" value="CAMBIAR CONTRASEÑA">
-        </form>
+        
+        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/anadir_local.php" enctype="multipart/form-data">
+                <h4>AÑADIR LOCAL</h4>
+                <label>Nombre</label>
+                <input type="text" name="nombreLoc" id="nombresLoc" class="campoED">
+                <label>Direccion</label>
+                <input type="text" name="direccionLoc" id="direccionLoc" class="campoED">
+                <label>Telefono</label>
+                <input type="text" name="telefonoLoc" id="telefonoLoc" class="campoED">
+                <label>Avatar</label>
+                <input type="file" name="avatarLoc" id="avatarLoc" class="campoED">
+                <label>Direccion de email</label>
+                <input type="email" name="mailLoc" id="mailLoc" class="campoED">
+                <label>Contrasena</label>
+                <input type="password" name="claveLoc" id="claveLoc" class="campoED">
+                <input type="submit" name="btnLoc" id="btnLoc" value="AÑADIR LOCAL">
+            </form>
+        
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

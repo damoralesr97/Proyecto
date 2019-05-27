@@ -18,24 +18,24 @@
         <div class="topHeader">
 
             <?php
-                $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
+                $sqli ="SELECT * FROM local WHERE loc_codigo='$codigoUsr'";
                 $stm = $conn->query($sqli);
                 while ($datos = $stm->fetch_object()){
             ?>
-                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
+                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->loc_avatar) ?>">
             <?php   
                 }
             ?>
 
             <ul>
             <?php
-                $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
+                $sql = "SELECT * FROM local WHERE loc_codigo=$codigoUsr";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Local </i>".$row['loc_nombre']."</a>
                             <ul>
-                                <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
+                                <li><a href='editar_informacion.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
@@ -45,43 +45,26 @@
             </ul>
             </div>
             <div class="encabezado">
-                <nav class="menu">
-                    <ul>
-                        <li><a href="index.php">INICIO</a></li>
-                        <li><a href="">NOSOTROS</a>
-                            <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">PRODUCTOS</a></li>
-                        <li><a href="">CONTACTO</a></li>
-                    </ul>
-                </nav>
-                <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
-                </div>
-                <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
-                </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.php">INICIO</a></li>
+                    <li><a href="">PRODUCTOS</a></li>
+                    <li><a href="">FACTURAS</a></li>
+                </ul>
+            </nav>
             </div>
         </header>
         <aside class="categorias">
             <h3>MENU</h3>
             <ul>
-                <li><a href="">PEDIDOS</a></li>
-                <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
+                <li><a href="editar_informacion.php">DETALLES DE LA CUENTA</a></li>
                 <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
                 <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
 
-        <form class="formEditarPerfil" method="POST" action="../../controladores/user/editar_contrasena.php">
+        <form class="formEditarPerfil" method="POST" action="../../controladores/local/editar_contrasena.php">
             <h4>EDITAR MI CONTRASEÑA</h4>
             <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
             <label>Contraseña anterior</label>

@@ -16,7 +16,7 @@
     date_default_timezone_set("America/Guayaquil");
     $fecha = date('Y-m-d H:i:s',time());
 
-    $sql = "UPDATE usuario SET usu_avatar=?, usu_fecha_modificacion=? WHERE usu_codigo=?";
+    $sql = "UPDATE local SET loc_avatar=?, loc_fecha_modificacion=? WHERE loc_codigo=?";
     $stm = $conn->prepare($sql);
     $stm->bind_param('sss',$bytesArchivo,$fecha,$codigo);
     if($stm->execute()){
@@ -25,5 +25,5 @@
         echo 'Error!!!';
     }
 
-    echo "<a href='../../vista/user/index.php'>Regresar</a>";
+    echo "<a href='../../vista/local/index.php'>Regresar</a>";
 ?>

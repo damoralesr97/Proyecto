@@ -15,23 +15,22 @@
             include '../../../config/conexionBD.php';
 
             $codigo = $_POST["codigo"];
-            $nombres = isset($_POST["nombresEd"]) ? mb_strtoupper(trim($_POST["nombresEd"]), 'UTF-8') : null;
-            $apellidos = isset($_POST["apellidosEd"]) ? mb_strtoupper(trim($_POST["apellidosEd"]), 'UTF-8') : null;
-            $mail = isset($_POST["mailEd"]) ? trim($_POST["mailEd"]) : null;
-            $nick = isset($_POST["nickEd"]) ? mb_strtoupper(trim($_POST["nickEd"]), 'UTF-8') : null;
+            $nombre = isset($_POST["nombreEd"]) ? mb_strtoupper(trim($_POST["nombreEd"]), 'UTF-8') : null;
             $telefono = isset($_POST["telefonoEd"]) ? trim($_POST["telefonoEd"]) : null;
+            $direccion = isset($_POST["direccionEd"]) ? mb_strtoupper(trim($_POST["direccionEd"]), 'UTF-8') : null;
+            $mail = isset($_POST["correoEd"]) ? trim($_POST["correoEd"]) : null;
 
             date_default_timezone_set("America/Guayaquil");
             $fecha = date('Y-m-d H:i:s',time());
 
-            $sql = "UPDATE usuario SET usu_nombres = '$nombres', usu_apellidos = '$apellidos', usu_nick = '$nick', usu_correo = '$mail', usu_telefono = '$telefono', usu_fecha_modificacion = '$fecha' WHERE usu_codigo = $codigo";
+            $sql = "UPDATE local SET loc_nombre = '$nombre', loc_telefono = '$telefono', loc_direccion = '$direccion', loc_correo = '$mail', loc_fecha_modificacion = '$fecha' WHERE loc_codigo = $codigo";
             
             if ($conn->query($sql) == TRUE){
                 echo "Se ha actualizado los datos personales correctamente!!!<br>";
             }else{
                 echo "Error: ".$sql."<br>".mysqli_error($conn)."<br>";
             }
-            echo "<a href='../../vista/user/index.php'>Regresar</a>";
+            echo "<a href='../../vista/local/index.php'>Regresar</a>";
 
             $conn->close();
         ?>

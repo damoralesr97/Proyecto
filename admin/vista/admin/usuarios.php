@@ -1,16 +1,17 @@
 <?php
     session_start();
-    $codigoUsr=$_SESSION['usuario'];
+    $codigoUsr = $_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
         header("Location: /Practicas/Proyecto/public/vista/elegir_local.php");
     }
+    
     include '../../../config/conexionBD.php';
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Editar Contrasena - Ferreteria</title>
+        <title>Usuarios - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
@@ -33,7 +34,7 @@
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
@@ -45,51 +46,62 @@
             </ul>
             </div>
             <div class="encabezado">
-                <nav class="menu">
-                    <ul>
-                        <li><a href="index.php">INICIO</a></li>
-                        <li><a href="">NOSOTROS</a>
-                            <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">PRODUCTOS</a></li>
-                        <li><a href="">CONTACTO</a></li>
-                    </ul>
-                </nav>
-                <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
-                </div>
-                <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
-                </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.php">INICIO</a></li>
+                    <li><a href="locales.php">LOCALES</a></li>
+                    <li><a href="">FACTURAS</a></li>
+                    <li><a href="usuarios.php">USUARIOS</a></li>
+                </ul>
+            </nav>
             </div>
         </header>
         <aside class="categorias">
-            <h3>MENU</h3>
+            <h3>USUARIOS</h3>
             <ul>
-                <li><a href="">PEDIDOS</a></li>
-                <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
-                <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
-                <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="usuarios.php">DETALLES DE USUARIOS</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
+        <div class="contenedorTabla">
+        <table class="tablaLocales">
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Nick</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th colspan="3">Accion</th>
+            </tr>
 
-        <form class="formEditarPerfil" method="POST" action="../../controladores/user/editar_contrasena.php">
-            <h4>EDITAR MI CONTRASEÑA</h4>
-            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
-            <label>Contraseña anterior</label>
-            <input type="password" name="claveAnt" id="claveAnt" class="campoED">
-            <label>Contraseña nueva</label>
-            <input type="password" name="claveNueva" id="claveNueva" class="campoED">
-            <input type="submit" name="editar" id="editar" value="CAMBIAR CONTRASEÑA">
-        </form>
+            <?php
+
+                $sql = "SELECT * FROM usuario WHERE usu_rol_codigo=2";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        if($row["usu_eliminado"]!='S'){
+                            echo "<tr>";
+                            echo "<td>" .$row["usu_nombres"]."</td>";
+                            echo "<td>" .$row["usu_apellidos"]."</td>";
+                            echo "<td>" .$row["usu_nick"]."</td>";
+                            echo "<td>" .$row["usu_telefono"]."</td>";
+                            echo "<td>" .$row["usu_correo"]."</td>";
+                            echo "<td class='accion'><a href='eliminar.php?codigo=".$row['usu_codigo']."'>Eliminar</a></td>";
+                            echo "<td class='accion'><a href='modificar.php?codigo=".$row['usu_codigo']."'>Modificar</a></td>";
+                            echo "<td class='accion'><a href='cambiar_contrasena.php?codigo=".$row['usu_codigo']."'>Cambiar contrasena</a></td>";
+                        }
+                    }
+                }else{
+                    echo "<tr>";
+                    echo "<td colspan='6'>No existen usuarios registrados en el sistema</td>";
+                    echo "</tr>";
+                }
+                $conn->close();
+            ?>
+        </table>
+        </div>
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">
