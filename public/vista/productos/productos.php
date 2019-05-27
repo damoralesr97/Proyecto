@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Ferreteria - Home</title>
-        <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
+        <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -30,7 +30,7 @@
                     <a href="">Buscar</a>
                 </div>
                 <div class="carrito">
-                    <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
+                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
                     <a href="">Carrito</a>
                     <i id="precio">$ 0.00</i>
                 </div>
@@ -55,7 +55,7 @@
                     <table style="width:100%"> 
 
                         <?php             
-                            include '../../config/conexionBD.php';  
+                            include '../../../config/conexionBD.php';  
                             $sql = "SELECT * FROM productos"; 
                             $result = $conn->query($sql); 
                             //$sql = 'SELECT = FROM news WHERE status <> 0'; 
@@ -64,16 +64,18 @@
                                     
                                 while($row = $result->fetch_assoc()) { 
 
-                                    echo "<tr>"; 
-                                    echo "<td>";                  
-                                    echo $row['prod_imagen'];
+                                    
+                                    echo "<th>";
+                                    ?>                  
+                                    <img src="<?php echo $row['prod_imagen']?>" alt=imgProd width=20%>
+                                    <?php
                                     echo "<br>";        
-                                    echo $row['prod_descripcion'];  
+                                    echo $row['prod_nombre'];  
                                     echo "<br>";        
-                                    echo $row['prod_precio'];
+                                    echo "$".$row['prod_precio']." INCLUYE IVA";
                                     echo "<br>";  
-                                    echo"</td>";                                              
-                                    echo "</tr>";
+                                    echo"</th>";                                              
+                                    
 
                                 } 
 
