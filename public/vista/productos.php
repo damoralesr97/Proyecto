@@ -90,7 +90,7 @@
                     </table>    
                 </article>
             </div>
-            
+
             <footer>
                 <div class="contenidoPie">
                     <div class="infoPie">
