@@ -13,7 +13,7 @@
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="home.html">INICIO</a></li>
+                        <li><a href="../home.html">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
@@ -21,7 +21,7 @@
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
-                        <li><a href="">PRODUCTOS</a></li>
+                        <li><a href="productos.php">PRODUCTOS</a></li>
                         <li><a href="">CONTACTO</a></li>
                     </ul>
                 </nav>
@@ -49,48 +49,41 @@
                     <li><a href="">INDUSTRIA</a></li>
                 </ul>
             </aside>
-            <div>
-                <article class="imagenesContenido">
+            <div class = "productos">
+                <?php             
+                    include '../../../config/conexionBD.php';  
+                    $sql = "SELECT * FROM productos"; 
+                    $result = $conn->query($sql); 
+                    //$sql = 'SELECT = FROM news WHERE status <> 0'; 
+        
+                    if ($result->num_rows > 0) { 
+                            
+                        while($row = $result->fetch_assoc()) { 
 
-                    <table style="width:100%"> 
+                            echo "<article class='contenidoProductos'>";
+                            ?>                  
+                            <img id= "imagenProd" src="<?php echo $row['prod_imagen']?>" alt=imgProd>
+                            <?php
+                            echo "<br>";        
+                            echo $row['prod_nombre']; 
+                            echo "<br>";     
+                            echo "$".$row['prod_precio']." INCLUYE IVA"; 
+                            echo "<br>";
+                            echo "<a href=''><img class = 'imgCarrito' src='../../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
+                            echo "</article>";                                             
+                            
 
-                        <?php             
-                            include '../../../config/conexionBD.php';  
-                            $sql = "SELECT * FROM productos"; 
-                            $result = $conn->query($sql); 
-                            //$sql = 'SELECT = FROM news WHERE status <> 0'; 
-                
-                            if ($result->num_rows > 0) { 
-                                    
-                                while($row = $result->fetch_assoc()) { 
+                        } 
 
-                                    
-                                    echo "<th>";
-                                    ?>                  
-                                    <img src="<?php echo $row['prod_imagen']?>" alt=imgProd width=20%>
-                                    <?php
-                                    echo "<br>";        
-                                    echo $row['prod_nombre'];  
-                                    echo "<br>";        
-                                    echo "$".$row['prod_precio']." INCLUYE IVA";
-                                    echo "<br>";  
-                                    echo"</th>";                                              
-                                    
-
-                                } 
-
-                            } else {                 
-                                echo "<tr>";                 
-                                echo "<td colspan='7'> No existen productos </td>";                 
-                                echo "</tr>"; 
-                    
-                            }
-                                
-                            $conn->close();          
-                        ?>
-
-                    </table>    
-                </article>
+                    } else {                 
+                        echo "<tr>";                 
+                        echo "<td colspan='7'> No existen productos </td>";                 
+                        echo "</tr>"; 
+            
+                    }
+                        
+                    $conn->close();          
+                ?>
             </div>
 
             <footer>
