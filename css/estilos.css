@@ -533,12 +533,13 @@ body {
     width: 200px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 90px;
+    padding-bottom: 100px;
     float: left;
 }
 
 #imagenProd{
     width: 100%;
+    margin-top: 10px;
     float: center;
 }
 
