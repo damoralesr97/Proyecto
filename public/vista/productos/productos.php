@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Ferreteria - Home</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
+        <script type ="text/javascript" src="../../controladores/buscar_productos.js"></script>
     </head>
     <body>
         <header>
@@ -26,8 +27,8 @@
                     </ul>
                 </nav>
                 <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
+                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProducto()"/>
+                    <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
                     <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
@@ -49,7 +50,7 @@
                     <li><a href="">INDUSTRIA</a></li>
                 </ul>
             </aside>
-            <div class = "productos">
+            <div id = "menuProd" class = "productos">
                 <?php             
                     include '../../../config/conexionBD.php';  
                     $sql = "SELECT * FROM productos"; 
