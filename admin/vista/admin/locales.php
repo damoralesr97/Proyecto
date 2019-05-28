@@ -2,7 +2,7 @@
     session_start();
     $codigoUsr = $_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
-        header("Location: /Practicas/Proyecto/public/vista/elegir_local.php");
+        header("Location: ../../../public/vista/elegir_local.php");
     }
     
     include '../../../config/conexionBD.php';
@@ -50,6 +50,7 @@
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
+                    <li><a href="productos.php">PRODUCTOS</a></li>
                     <li><a href="">FACTURAS</a></li>
                     <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>

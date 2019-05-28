@@ -62,7 +62,7 @@
                             echo "<article class='contenidoProductos'>";
 
                                 ?>                  
-                                <img id= "imagenProd" src="<?php echo $row['prod_imagen']?>" alt=imgProd>
+                                <img id= "imgProd" src="<?php echo $row['prod_imagen']?>" alt=imgProd>
                                 <?php
                                 echo "<br>";        
                                 echo $row['prod_nombre']; 

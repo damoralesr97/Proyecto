@@ -60,7 +60,7 @@
         <aside class="categorias">
             <h3>PRODUCTOS</h3>
             <ul>
-                <li><a href="locales.php">DETALLES DE PRODUCTOS</a></li>
+                <li><a href="productos.php">DETALLES DE PRODUCTOS</a></li>
                 <li><a href="anadir_local.php">AÑADIR PRODUCTO</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
