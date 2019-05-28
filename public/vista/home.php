@@ -1,25 +1,21 @@
 <?php
     session_start();
-    $codigoUsr = $_SESSION['usuario'];
-    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
-        header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
-    }
-    
-    include '../../../config/conexionBD.php';
+    $codL=$_GET["codigo"];
+    $_SESSION["local"] = $codL;
 ?>
 <!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Ferreteria - Home</title>
-        <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
+        <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
         <script>
             /**
              * Array con las imagenes y enlaces que se iran mostrando en la web
              */
             var imagenes=new Array();
             for (var i=1;i<=4;i++) {
-                imagenes[i] = "../../../imagenes/img/imgCont"+i.toString()+'.png';
+                imagenes[i] = "../../imagenes/img/imgCont"+i.toString()+'.png';
             }
             /**
              * Funcion para cambiar la imagen y link
@@ -49,38 +45,12 @@
     <body>
         <header>
             <div class="topHeader">
-                
-            <?php
-                $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
-                $stm = $conn->query($sqli);
-                while ($datos = $stm->fetch_object()){
-            ?>
-                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
-            <?php   
-                }
-            ?>
-
-                <ul>
-                <?php
-                    $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
-                    $result = $conn->query($sql);
-                    if($result->num_rows > 0){
-                        while($row = $result->fetch_assoc()){
-                            echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
-                                <ul>
-                                    <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
-                                    <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
-                                </ul>
-                            </li>";
-                        }
-                    }
-                ?>
-                </ul>
+                <a href="mi_cuenta.php" class="nombreUser">INICIAR SESION O REGISTRARME</a>
             </div>
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="index.php">INICIO</a></li>
+                        <li><a href="home.php?codigo=<?php echo $_SESSION["local"] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
@@ -97,7 +67,7 @@
                     <a href="">Buscar</a>
                 </div>
                 <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
+                    <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
                     <a href="">Carrito</a>
                     <i id="precio">$ 0.00</i>
                 </div>
@@ -106,33 +76,33 @@
             <aside class="categorias">
                 <h3>CATEGORIAS</h3>
                 <ul>
-                    <li><a href="">ACABADOS DE CASA</a></li>
-                    <li><a href="">ADITIVOS</a></li>
-                    <li><a href="">BASICOS DE LA CONSTRUCCION</a></li>
-                    <li><a href="">ELECTRICO</a></li>
-                    <li><a href="">FERRETERIA</a></li>
-                    <li><a href="">HIDROSANITARIA</a></li>
-                    <li><a href="">HOGAR</a></li>
-                    <li><a href="">INDUSTRIA</a></li>
+                    <li><a href="acabados_casa.php">ACABADOS DE CASA</a></li>
+                    <li><a href="aditivos.php">ADITIVOS</a></li>
+                    <li><a href="basicos_cons.php">BASICOS DE LA CONSTRUCCION</a></li>
+                    <li><a href="electrico.php">ELECTRICO</a></li>
+                    <li><a href="ferreteria.php">FERRETERIA</a></li>
+                    <li><a href="hidro.php">HIDROSANITARIA</a></li>
+                    <li><a href="hogar.php">HOGAR</a></li>
+                    <li><a href="industria.php">INDUSTRIA</a></li>
                 </ul>
             </aside>
-            <div class="contenido">
+            <div>
                 <article class="imagenesContenido">
                     <img src="" alt="Imagenes promociones" id="imagen">
                 </article>
                 <div class="caracteristicas">
                     <article class="cajaCarac">
-                        <img src="../../../imagenes/iconos/cobertura.png" alt="Cobertura Local">
+                        <img src="../../imagenes/iconos/cobertura.png" alt="Cobertura Local">
                         <h4>COBERTURA LOCAL</h4>
                         <p>Contamos con locales en varios sectores de la ciudad</p>    
                     </article>
                     <article class="cajaCarac">
-                        <img src="../../../imagenes/iconos/asesoria.png" alt="Asesoria en Productos">
+                        <img src="../../imagenes/iconos/asesoria.png" alt="Asesoria en Productos">
                         <h4>ASESORIA EN PRODUCTOS</h4>
                         <p>Servicio pre y post-venta con atención personalizada.</p>    
                     </article>
                     <article class="cajaCarac">
-                        <img src="../../../imagenes/iconos/calidad.png" alt="Productos de calidad">
+                        <img src="../../imagenes/iconos/calidad.png" alt="Productos de calidad">
                         <h4>PRODUCTOS DE CALIDAD</h4>
                         <p>Excelente calidad en todas nuestras líneas de productos.</p>    
                     </article>

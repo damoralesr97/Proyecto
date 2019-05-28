@@ -27,7 +27,7 @@
                             while ($datos = $stm->fetch_object()){
                                 echo "<td>  <img src='data:image/jpg; base64,".base64_encode($datos->loc_avatar)."'>  </td>";
                             }
-                            echo "<td ><a href='home.html'>" .$row["loc_nombre"]."</a></td>";
+                            echo "<td ><a href='home.php?codigo=".$row["loc_codigo"]."'>" .$row["loc_nombre"]."</a></td>";
                             echo "<td class='dirLoc'>" .$row["loc_direccion"]."</td>";
                         }
                     }
@@ -39,6 +39,10 @@
                 $conn->close();
             ?>
         </table>
+        </div>
+        <div class="pie">
+                <a href="mi_cuentaAd.html">Administrador</a>
+                <a href="mi_cuentaLo.html">Local</a>
         </div>
 
     </body>

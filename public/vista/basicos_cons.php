@@ -1,19 +1,25 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    $_SESSION["local"];
+    include '../../config/conexionBD.php'
+?>
+<!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Mi Cuenta - Ferreteria</title>
+        <title>Ferreteria - Productos</title>
         <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
+        <script type="text/javascript" src="../../js/funciones.js"></script>
     </head>
     <body>
         <header>
             <div class="topHeader">
-                <a href="" class="nombreUser">INICIAR SESION O REGISTRARME</a>
+                <a href="mi_cuenta.php" class="nombreUser">INICIAR SESION O REGISTRARME</a>
             </div>
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="home.html">INICIO</a></li>
+                        <li><a href="home.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
@@ -21,7 +27,7 @@
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
-                        <li><a href="productos/productos.php">PRODUCTOS</a></li>
+                        <li><a href="productos.php">PRODUCTOS</a></li>
                         <li><a href="">CONTACTO</a></li>
                     </ul>
                 </nav>
@@ -36,36 +42,57 @@
                 </div>
             </div>
         </header>
-        <div class="contenidoMiCuenta">
-            <form class="formulario" method="POST" action="../controladores/login.php">
-                <h4>INICIAR SESION</h4>
-                <label>Direccion de email</label>
-                <input type="email" name="mailIS" id="mailIS" class="campo">
-                <label>Contrasena</label>
-                <input type="password" name="claveIS" id="claveIS" class="campo">
-                <input type="submit" name="btnIS" id="btnIS" value="INICIAR SESION">
-            </form>
-            <form class="formulario" method="POST" action="../controladores/registrar_usuario.php" enctype="multipart/form-data">
-                <h4>REGISTRARME</h4>
-                <label>Nombres</label>
-                <input type="text" name="nombresReg" id="nombresReg" class="campo">
-                <label>Apellidos</label>
-                <input type="text" name="apellidosReg" id="apellidosReg" class="campo">
-                <label>Direccion de email</label>
-                <input type="email" name="mailReg" id="mailReg" class="campo">
-                <label>Nick</label>
-                <input type="text" name="nickReg" id="nickReg" class="campo">
-                <label>Telefono</label>
-                <input type="text" name="telefonoReg" id="telefonoReg" class="campo">
-                <label>Avatar</label>
-                <input type="file" name="avatarReg" id="avatarReg" class="campo">
-                <label>Contrasena</label>
-                <input type="password" name="claveReg" id="claveReg" class="campo">
-                <label>Contrasena (Repetir)</label>
-                <input type="password" name="repClaveReg" id="repClaveReg" class="campo">
-                <input type="submit" name="btnReg" id="btnReg" value="REGISTRARME">
-            </form>
-        </div>
+        <aside class="categorias">
+                <h3>CATEGORIAS</h3>
+                <ul>
+                    <li><a href="acabados_casa.php">ACABADOS DE CASA</a></li>
+                    <li><a href="aditivos.php">ADITIVOS</a></li>
+                    <li><a href="basicos_cons.php">BASICOS DE LA CONSTRUCCION</a></li>
+                    <li><a href="electrico.php">ELECTRICO</a></li>
+                    <li><a href="ferreteria.php">FERRETERIA</a></li>
+                    <li><a href="hidro.php">HIDROSANITARIA</a></li>
+                    <li><a href="hogar.php">HOGAR</a></li>
+                    <li><a href="industria.php">INDUSTRIA</a></li>
+                </ul>
+            </aside>
+
+            <article class="prods">
+                <table>
+
+                    <?php
+                        $sql = "SELECT * FROM producto WHERE pro_loc_codigo='".$_SESSION["local"]."' and pro_cat_codigo=3";
+                        $result = $conn->query($sql);
+                        $i=0;
+                        if ($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                if($row["pro_eliminado"]!='S'){
+                                    echo "<tr>";
+                                    
+                                    $sqli ="SELECT pro_imagen FROM producto WHERE pro_codigo=$row[pro_codigo]";
+                                    $stm = $conn->query($sqli);
+                                    while ($datos = $stm->fetch_object()){
+                                        
+                                        echo "<td>  <img src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
+                                    }
+                                    $i=$i+1;
+                                    echo "<td id='titP'>".$row["pro_nombre"]."</td>";
+                                    echo "<td>".$row["pro_detalle"]."</td>";
+                                    echo "<td><strong>Stock: </strong>".$row["pro_cantidad"]."</td>";
+                                    echo "<td><i>".$row["pro_precio"]."$<i></td>";
+                                    echo "<td> <button onclick='disminuir(".$i.")' >-</button> <input type='text' name='txtC".$i."' id='txtC".$i."' value='1'> <button onclick='aumentar(".$i.")' >+</button> </td>";
+                                    echo "<td><a href=''>Agregar al carrito</a></td>";
+                                }
+                            }
+                        }else{
+                            echo "<tr>";
+                            echo "<td colspan='7'>No existen productos registrados en el sistema</td>";
+                            echo "</tr>";
+                        }
+                        $conn->close();
+                    ?>
+                </table>
+            </article>
+            
             <footer>
                 <div class="contenidoPie">
                     <div class="infoPie">

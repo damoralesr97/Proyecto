@@ -1,10 +1,15 @@
+<?php
+    session_start();
+    $_SESSION["local"];
+    include '../../config/conexionBD.php'
+?>
 <!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Ferreteria - Home</title>
-        <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
-        <script type ="text/javascript" src="../../controladores/buscar_productos.js"></script>
+        <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
+        <script type="text/javascript" src="../../js/funciones.js"></script>
     </head>
     <body>
         <header>
@@ -14,7 +19,7 @@
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="../home.html">INICIO</a></li>
+                        <li><a href="home.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
@@ -31,7 +36,7 @@
                     <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
-                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
+                    <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
                     <a href="">Carrito</a>
                     <i id="precio">$ 0.00</i>
                 </div>
@@ -52,29 +57,35 @@
             </aside>
             <div id = "menuProd" class = "productos">
                 <?php             
-                    include '../../../config/conexionBD.php';  
-                    $sql = "SELECT * FROM productos"; 
-                    $result = $conn->query($sql); 
-        
+                    include '../../config/conexionBD.php';  
+                    $sql = "SELECT * FROM producto WHERE pro_loc_codigo=".$_SESSION["local"];
+                    $result = $conn->query($sql);
+                    $i=0;
                     if ($result->num_rows > 0) { 
                             
                         while($row = $result->fetch_assoc()) { 
 
+                            if($row["pro_eliminado"]!='S'){
+
                             echo "<article class='contenidoProductos'>";
 
-                                ?>                  
-                                <img id= "imgProd" src="<?php echo $row['prod_imagen']?>" alt=imgProd>
-                                <?php
+                                $sqli ="SELECT pro_imagen FROM producto WHERE pro_codigo=$row[pro_codigo]";
+                                $stm = $conn->query($sqli);
+                                while ($datos = $stm->fetch_object()){
+                                    
+                                    echo "<td>  <img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
+                                }
+                                $i=$i+1;
                                 echo "<br>";        
-                                echo $row['prod_nombre']; 
+                                echo $row['pro_nombre']; 
                                 echo "<br>";     
-                                echo "$".$row['prod_precio']." INCLUYE IVA"; 
+                                echo "$".$row['pro_precio']." INCLUYE IVA"; 
                                 echo "<br>";
-                                echo "<a href=''><img class = 'imgCarrito' src='../../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
+                                echo "<a href=''><img class = 'imgCarrito' src='../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
 
                             echo "</article>";                                             
                             
-
+                            }      
                         } 
 
                     } else {                 
