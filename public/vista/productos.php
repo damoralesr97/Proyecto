@@ -73,7 +73,7 @@
                                 $stm = $conn->query($sqli);
                                 while ($datos = $stm->fetch_object()){
                                     
-                                    echo "<td>  <img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
+                                    echo "<a href='productoSelect.php?codigo=".$row['pro_codigo']."'><img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'/></a>";
                                 }
                                 $i=$i+1;
                                 echo "<br>";        

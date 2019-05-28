@@ -1,7 +1,9 @@
 <?php
     session_start();
     $_SESSION["local"];
+    $pro_codigo = $_GET['codigo'];
     include '../../config/conexionBD.php'
+    
 ?>
 <!Doctype html>
 <html>
@@ -60,7 +62,7 @@
                 <table id = "menuProd">
 
                     <?php
-                        $sql = "SELECT * FROM producto WHERE pro_loc_codigo=".$_SESSION["local"];
+                        $sql = "SELECT * FROM producto WHERE pro_codigo='$pro_codigo' AND pro_loc_codigo=".$_SESSION["local"];
                         $result = $conn->query($sql);
                         $i=0;
                         if ($result->num_rows > 0){
