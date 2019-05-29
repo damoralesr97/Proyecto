@@ -16,6 +16,8 @@
             $telefono = isset($_POST["telefonoLoc"]) ? trim($_POST["telefonoLoc"]) : null;
             $mail = isset($_POST["mailLoc"]) ? trim($_POST["mailLoc"]) : null;
             $contrasena = isset($_POST["claveLoc"]) ? trim($_POST["claveLoc"]) : null;
+            $lat = $_POST["txtLat"];
+            $len = $_POST["txtLng"];
             
             $nombreImg = $_FILES['avatarLoc']['name'];
             $tmp = $_FILES['avatarLoc']['tmp_name'];
@@ -25,7 +27,7 @@
 
             
 
-            $sql = "INSERT INTO local VALUES (0, '$nombre', '$mail', MD5('$contrasena'), '$telefono', '$direccion', null, null, null, 'N', 3)";
+            $sql = "INSERT INTO local VALUES (0, '$nombre', '$mail', MD5('$contrasena'), '$telefono', '$direccion', null, null, null, 'N', 3, '$lat', '$len')";
             if ($conn->query($sql)==TRUE){
                 echo"<p>Se ha creado el local correctamente!!!</p>";
             }else{

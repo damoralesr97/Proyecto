@@ -40,7 +40,6 @@
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
                     <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
                 </div>
             </div>
         </header>
@@ -76,13 +75,13 @@
                                         
                                         echo "<td>  <img src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
                                     }
-                                    $i=$i+1;
+                                    echo "<form method='post' action=agregar.php?cantidad=0&codigo=".$row['pro_codigo'].">";
                                     echo "<td id='titP'>".$row["pro_nombre"]."</td>";
                                     echo "<td>".$row["pro_detalle"]."</td>";
                                     echo "<td><strong>Stock: </strong>".$row["pro_cantidad"]."</td>";
                                     echo "<td><i>".$row["pro_precio"]."$<i></td>";
-                                    echo "<td> <button onclick='disminuir(".$i.")' >-</button> <input type='text' name='txtC".$i."' id='txtC".$i."' value='1'> <button onclick='aumentar(".$i.")' >+</button> </td>";
-                                    echo "<td><a href=''>Agregar al carrito</a></td>";
+                                    echo "<td> <input type='button' onclick='disminuir()' value='-' > <input type='text' name='txtC' id='txtC' value='1'> <input type='button' onclick='aumentar()' value='+'> </td>";
+                                    echo "<td><input type='submit' value='Agregar al carrito'></td>";
                                 }
                             }
                         }else{

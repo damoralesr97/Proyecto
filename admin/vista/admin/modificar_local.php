@@ -1,36 +1,35 @@
 <?php
     session_start();
-    $codigoUsr = $_SESSION['usuario'];
+    $codigoUsr=$_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
         header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
     }
-    
     include '../../../config/conexionBD.php';
+    $loc=$_GET['codigo'];
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Locales - Ferreteria</title>
+        <title>Editar Perfil - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
-
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc"></script>
         <script type="text/javascript">
-            function initialize() {
+            function initialize(lat,lng) {
                 // Creating map object
                 var map = new google.maps.Map(document.getElementById('map_canvas'), {
                     zoom: 14,
-                    center: new google.maps.LatLng(-2.915132, -78.999517),
+                    center: new google.maps.LatLng(lat,lng),
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
 
                 // creates a draggable marker to the given coords
                 var vMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(-2.915132, -78.999517),
+                    position: new google.maps.LatLng(lat,lng),
                     draggable: true
                 });
 
@@ -55,7 +54,18 @@
         </script>
 
     </head>
-    <body onload="initialize();">
+
+    <?php
+        $sql = "SELECT * FROM local WHERE loc_codigo=$loc";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+    ?>
+    <body onload="initialize(<?php echo floatval($row['loc_latitud']) ?>,<?php echo floatval($row['loc_longitud']) ?>)">
+    <?php
+            }
+        }
+    ?>
     <header>
         <div class="topHeader">
 
@@ -75,13 +85,16 @@
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
                     }
+                }else{
+                    echo "<p>Ha ocurrido un error inesperdado</p>";
+                    echo "<p>".mysqli_error($conn)."</p>";
                 }
             ?>
             </ul>
@@ -92,7 +105,7 @@
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
                     <li><a href="">FACTURAS</a></li>
-                    <li><a href="">USUARIOS</a></li>
+                    <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
             </div>
@@ -105,27 +118,39 @@
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
-        
-        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/anadir_local.php" enctype="multipart/form-data">
-                <h4>AÑADIR LOCAL</h4>
-                <label>Nombre</label>
-                <input type="text" name="nombreLoc" id="nombresLoc" class="campoED">
-                <label>Direccion</label>
-                <input type="text" name="direccionLoc" id="direccionLoc" class="campoED">
-                <input type="hidden" id="txtLat" name="txtLat">
-                <input type="hidden" id="txtLng" name="txtLng">
-                <div id="map_canvas" style="width: 80%; height: 500px;"></div>
-                <label>Telefono</label>
-                <input type="text" name="telefonoLoc" id="telefonoLoc" class="campoED">
-                <label>Avatar</label>
-                <input type="file" name="avatarLoc" id="avatarLoc" class="campoED">
-                <label>Direccion de email</label>
-                <input type="email" name="mailLoc" id="mailLoc" class="campoED">
-                <label>Contrasena</label>
-                <input type="password" name="claveLoc" id="claveLoc" class="campoED">
-                <input type="submit" name="btnLoc" id="btnLoc" value="AÑADIR LOCAL">
-            </form>
-        
+
+        <?php
+            $sql = "SELECT * FROM local WHERE loc_codigo=$loc";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+        ?>
+
+        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/modificar_local.php">
+            <h4>EDITAR LOCAL</h4>
+            <input type="hidden" id="codigoLoc" name="codigoLoc" value="<?php echo $loc ?>">
+            <label>Nombre</label>
+            <input type="text" name="nombreLoc" id="nombresLoc" class="campoED" value="<?php echo $row['loc_nombre'] ?>">
+            <label>Direccion</label>
+            <input type="text" name="direccionLoc" id="direccionLoc" class="campoED" value="<?php echo $row['loc_direccion'] ?>">
+            <input type="hidden" id="txtLat" name="txtLat" value="<?php echo $row['loc_latitud'] ?>">
+            <input type="hidden" id="txtLng" name="txtLng" value="<?php echo $row['loc_longitud'] ?>">
+            <div id="map_canvas" style="width: 80%; height: 500px;"></div>
+            <label>Telefono</label>
+            <input type="text" name="telefonoLoc" id="telefonoLoc" class="campoED" value="<?php echo $row['loc_telefono'] ?>">
+            <label>Direccion de email</label>
+            <input type="email" name="mailLoc" id="mailLoc" class="campoED" value="<?php echo $row['loc_correo'] ?>">
+            <input type="submit" name="editar" id="editar" value="GUARDAR LOS CAMBIOS">
+        </form>
+        <?php
+            }
+        }else{
+            echo "<p>Ha ocurrido un error inesperdado</p>";
+            echo "<p>".mysqli_error($conn)."</p>";
+        }
+        $conn->close();
+        ?>
+
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

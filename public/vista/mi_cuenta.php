@@ -36,8 +36,7 @@
                 </div>
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
+                    <a href="carrito.php">Carrito</a>
                 </div>
             </div>
         </header>

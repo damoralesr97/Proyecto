@@ -14,7 +14,7 @@
     <body>
         <header>
             <div class="topHeader">
-                <a href="../mi_cuenta.html" class="nombreUser">INICIAR SESION O REGISTRARME</a>
+                <a href="mi_cuenta.php" class="nombreUser">INICIAR SESION O REGISTRARME</a>
             </div>
             <div class="encabezado">
                 <nav class="menu">
@@ -31,15 +31,13 @@
                         <li><a href="">CONTACTO</a></li>
                     </ul>
                 </nav>
-                --
                 <div class="busqueda">
                     <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProducto()"/>
                     <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
+                    <a href="carrito.php">Carrito</a>
                 </div>
             </div>
         </header>
@@ -81,8 +79,7 @@
                                 echo $row['pro_nombre']; 
                                 echo "<br>";     
                                 echo "$".$row['pro_precio']." INCLUYE IVA"; 
-                                echo "<br>";
-
+                                
                             echo "</article>";                                             
                             
                             }      

@@ -1,9 +1,10 @@
 <?php
     session_start();
     $codigoUsr = $_SESSION['usuario'];
-    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "1"){
-        header("Location: ../../../public/vista/elegir_local.php");
+    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+        header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
     }
+    
     include '../../../config/conexionBD.php';
 ?>
 <!DOCTYPE html>
@@ -87,7 +88,7 @@
                             echo "<td>" .$row["loc_telefono"]."</td>";
                             echo "<td>" .$row["loc_direccion"]."</td>";
                             echo "<td class='accion'><a href='eliminar.php?codigo=".$row['loc_codigo']."'>Eliminar</a></td>";
-                            echo "<td class='accion'><a href='modificar.php?codigo=".$row['loc_codigo']."'>Modificar</a></td>";
+                            echo "<td class='accion'><a href='modificar_local.php?codigo=".$row['loc_codigo']."'>Modificar</a></td>";
                             echo "<td class='accion'><a href='cambiar_contrasena.php?codigo=".$row['loc_codigo']."'>Cambiar contrasena</a></td>";
                         }
                     }

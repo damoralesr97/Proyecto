@@ -580,8 +580,7 @@ body {
 .prods{
     width: 76%;
     float: left;
-    margin-top: 5px;
-    margin-left: 60px;
+    margin: 10px;
 }
 
 
@@ -603,13 +602,23 @@ body {
     padding: 0 5px;
 }
 
-.prods button{
+.prods input[type='button']{
+    border-radius: 10px;
+    border: 1px solid navy;
+    background: #1C2833;
+    color: white;
+    font-weight: bolder;
+    width: 40px;
+    height: 30px;
+}
+
+.prods input[type='submit']{
     border-radius: 10px;
     border: 1px solid red;
     background: #E74C3C;
     color: white;
     font-weight: bolder;
-    width: 40px;
+    width: 130px;
     height: 30px;
 }
 
@@ -660,5 +669,41 @@ body {
 .productos{
     margin-left: 28%;
     margin-top: 25px;
+}
+
+
+/*ESTILOS PARA CARRITO.PHP*/
+.carroC{
+    text-align: center;
+}
+
+.carroC table{
+    margin: 30px auto;
+    width: 70%;
+}
+
+.carroC th, .carroC .preciolbl{
+    background: #E74C3C;
+    color: white;
+}
+
+.carroC table a{
+    text-decoration: none;
+    color: #E74C3C;
+}
+
+.carroC table a:hover{
+    color: white;
+    text-decoration: underline;
+    background: #E74C3C;
+}
+
+.carroC .reglbl{
+    text-decoration: none;
+    color: white;
+    background: #E74C3C;
+    padding: 15px 10px;
+    border-radius: 15px;
+    font-weight: bold;
 }
 
