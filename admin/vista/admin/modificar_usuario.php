@@ -2,8 +2,8 @@
     session_start();
     $codigo=$_GET['codigo'];
     $codigoUsr = $_SESSION['usuario'];
-    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
-        header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
+    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "1"){
+        header("Location: ../../../public/vista/elegir_local.php");
     }
     include '../../../config/conexionBD.php';
 ?>
@@ -63,9 +63,8 @@
         <aside class="categorias">
             <h3>MENU</h3>
             <ul>
-                <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
-                <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
-                <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="modificar_usuario.php?codigo=<?php echo $codigo?>">DETALLES DE LA CUENTA</a></li>
+                <li><a href="modificar_contrasena.php?codigo=<?php echo $codigo?>">CAMBIAR CONTRASEÑA</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>

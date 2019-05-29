@@ -26,7 +26,7 @@
                 date_default_timezone_set("America/Guayaquil");
                 $fecha = date('Y-m-d H:i:s',time());
 
-                $sqlContrasena2 = "UPDATE usuario SET usu_password=MD5($contrasena2), usu_fecha_modificacion='$fecha' WHERE usu_codigo=$codigo";
+                $sqlContrasena2 = "UPDATE usuario SET usu_password=MD5('$contrasena2'), usu_fecha_modificacion='$fecha' WHERE usu_codigo=$codigo";
 
                 if ($conn->query($sqlContrasena2) === TRUE){
                     echo "Se ha actualizado la contrasena correctamente";

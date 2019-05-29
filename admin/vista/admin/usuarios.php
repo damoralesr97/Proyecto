@@ -89,6 +89,7 @@
                             echo "<td>" .$row["usu_telefono"]."</td>";
                             echo "<td>" .$row["usu_correo"]."</td>";
                             echo "<td class='accion'><a href='modificar_usuario.php?codigo=".$row['usu_codigo']."'>Modificar</a></td>";
+                            echo "<td class='accion'><a href='../../controladores/admin/eliminar_usuario.php?codigo=".$row['usu_codigo']."'>Eliminar</a></td>";
                         }
                     }
                 }else{
