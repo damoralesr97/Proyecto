@@ -1,8 +1,8 @@
 <?php
     session_start();
     $codigoUsr=$_SESSION['usuario'];
-    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
-        header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
+    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "1"){
+        header("Location: ../../../public/vista/elegir_local.php");
     }
     include '../../../config/conexionBD.php';
 ?>
@@ -48,9 +48,9 @@
             <nav class="menu">
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
-                    <li><a href="">LOCALES</a></li>
+                    <li><a href="locales.php">LOCALES</a></li>
                     <li><a href="">FACTURAS</a></li>
-                    <li><a href="">USUARIOS</a></li>
+                    <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
             </div>

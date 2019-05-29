@@ -49,9 +49,9 @@
 <nav class="menu">
     <ul>
         <li><a href="index.php">INICIO</a></li>
-        <li><a href="">LOCALES</a></li>
+        <li><a href="locales.php">LOCALES</a></li>
         <li><a href="">FACTURAS</a></li>
-        <li><a href="">USUARIOS</a></li>
+        <li><a href="usuarios.php">USUARIOS</a></li>
     </ul>
 </nav>
 </div>

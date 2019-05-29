@@ -3,6 +3,9 @@
     $_SESSION["local"];
     $codigoUsr = $_SESSION['usuario'];
     $pro_codigo = $_GET['codigo'];
+    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "2"){
+        header("Location: ../../../public/vista/elegir_local.php");
+    }
     include '../../../config/conexionBD.php'
 ?>
 <!Doctype html>

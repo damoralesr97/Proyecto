@@ -2,6 +2,9 @@
     session_start();
     $_SESSION["local"];
     $codigoUsr = $_SESSION['usuario'];
+    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "2"){
+        header("Location: ../../../public/vista/elegir_local.php");
+    }
     include '../../../config/conexionBD.php'
 ?>
 <!Doctype html>
