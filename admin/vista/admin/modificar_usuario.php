@@ -1,18 +1,17 @@
 <?php
     session_start();
+    $codigo=$_GET['codigo'];
     $codigoUsr = $_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
         header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
     }
-    
     include '../../../config/conexionBD.php';
-    
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Productos - Ferreteria</title>
+        <title>Editar Perfil - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
@@ -20,29 +19,33 @@
         <div class="topHeader">
 
             <?php
-                $sqli ="SELECT * FROM local WHERE loc_codigo='$codigoUsr'";
+                $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
                 $stm = $conn->query($sqli);
                 while ($datos = $stm->fetch_object()){
             ?>
-                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->loc_avatar) ?>">
+                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
             <?php   
                 }
             ?>
 
             <ul>
             <?php
-                $sql = "SELECT * FROM local WHERE loc_codigo=$codigoUsr";
+                $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Local </i>".$row['loc_nombre']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
                     }
+                }else{
+                    echo "<p>Ha ocurrido un error inesperdado</p>";
+                    echo "<p>".mysqli_error($conn)."</p>";
                 }
+                $conn->close();
             ?>
             </ul>
             </div>
@@ -50,73 +53,53 @@
             <nav class="menu">
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
-                    <li><a href="productos.php">PRODUCTOS</a></li>
+                    <li><a href="">LOCALES</a></li>
                     <li><a href="">FACTURAS</a></li>
+                    <li><a href="">USUARIOS</a></li>
                 </ul>
             </nav>
-            </div>
-        </header>
+        </div>
+    </header>
         <aside class="categorias">
-            <h3>PRODUCTOS</h3>
+            <h3>MENU</h3>
             <ul>
-                <li><a href="productos.php">DETALLE DE PRODUCTOS</a></li>
-                <li><a href="anadir_productos.php">ANADIR PRODUCTO</a></li>
-                <li><a href="../../../config/cerrar_sesion.php">CERRAR SESION</a></li>
+                <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
+                <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
+                <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
-        <div class="contenedorTabla">
-        <table class="tablaLocales">
-            <tr>
-                <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Detalle</th>
-                <th>Categoria</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th colspan="2">Accion</th>
-            </tr>
 
-            <?php
-
-                $sql = "SELECT * FROM producto WHERE pro_loc_codigo=$codigoUsr";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0){
-                    while($row = $result->fetch_assoc()){
-                        if($row["pro_eliminado"]!='S'){
-                            echo "<tr>";
-                            echo "<td>" .$row["pro_codigo"]."</td>";
-                            echo "<td>" .$row["pro_nombre"]."</td>";
-                            echo "<td>" .$row["pro_detalle"]."</td>";
-                            echo "<td>" .buscarCat($row["pro_cat_codigo"])."</td>";
-                            echo "<td>" .$row["pro_precio"]."</td>";
-                            echo "<td>" .$row["pro_cantidad"]."</td>";
-                            echo "<td class='accion'><a href='../../vista/local/modificar_producto.php?codigo=".$row['pro_codigo']."'>Modificar</a></td>";
-                            echo "<td class='accion'><a href='../../controladores/local/eliminar_producto.php?codigo=".$row['pro_codigo']."'>Eliminar</a></td>";
-                        }
-                    }
-                }else{
-                    echo "<tr>";
-                    echo "<td colspan='7'>No existen productos registrados en el sistema</td>";
-                    echo "</tr>";
-                }
-                $conn->close();
-                $catName="";
-                function buscarCat($codigo){
-                    include '../../../config/conexionBD.php';
-                    $sqli = "SELECT cat_nombre FROM categoria WHERE cat_codigo='$codigo'";
-                    $result = $conn->query($sqli);
-                    if($result->num_rows > 0){
-                        while($row = $result->fetch_assoc()){
-                            $catName=$row['cat_nombre'];
-                        }
-                    }
-                    return $catName;
-                }
-
-            ?>
-        </table>
-        </div>
+        <?php
+        include '../../../config/conexionBD.php';
+        $sql1 = "SELECT * FROM usuario WHERE usu_codigo=$codigo";
+        $result = $conn->query($sql1);
+        if($result->num_rows > 0){
+            while($row1 = $result->fetch_assoc()){
+        ?>
+        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/modificar.php">
+            <h4>EDITAR MI PERFIL</h4>
+            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigo ?>" class="campoED">
+            <label>Nombres</label>
+            <input type="text" name="nombresEd" id="nombresEd" value="<?php echo $row1["usu_nombres"] ?>" class="campoED">
+            <label>Apellidos</label>
+            <input type="text" name="apellidosEd" id="apellidosEd" value="<?php echo $row1["usu_apellidos"] ?>" class="campoED">
+            <label>Nick</label>
+            <input type="text" name="nickEd" id="nickEd" value="<?php echo $row1["usu_nick"] ?>" class="campoED">
+            <label>Telefono</label>
+            <input type="text" name="telefonoEd" id="telefonoEd" value="<?php echo $row1["usu_telefono"] ?>" class="campoED">
+            <label>Correo</label>
+            <input type="text" name="mailEd" id="mailEd" value="<?php echo $row1["usu_correo"] ?>" class="campoED">
+            <input type="submit" name="editar" id="editar" value="GUARDAR LOS CAMBIOS">
+        </form>
+        <?php
+            }
+        }else{
+            echo "<p>Ha ocurrido un error inesperdado</p>";
+            echo "<p>".mysqli_error($conn)."</p>";
+        }
+        $conn->close();
+        ?>
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

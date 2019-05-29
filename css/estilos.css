@@ -580,7 +580,8 @@ body {
 .prods{
     width: 76%;
     float: left;
-    margin: 10px;
+    margin-top: 5px;
+    margin-left: 60px;
 }
 
 
@@ -660,3 +661,4 @@ body {
     margin-left: 28%;
     margin-top: 25px;
 }
+

@@ -88,9 +88,7 @@
                             echo "<td>" .$row["usu_nick"]."</td>";
                             echo "<td>" .$row["usu_telefono"]."</td>";
                             echo "<td>" .$row["usu_correo"]."</td>";
-                            echo "<td class='accion'><a href='eliminar.php?codigo=".$row['usu_codigo']."'>Eliminar</a></td>";
-                            echo "<td class='accion'><a href='modificar.php?codigo=".$row['usu_codigo']."'>Modificar</a></td>";
-                            echo "<td class='accion'><a href='cambiar_contrasena.php?codigo=".$row['usu_codigo']."'>Cambiar contrasena</a></td>";
+                            echo "<td class='accion'><a href='modificar_usuario.php?codigo=".$row['usu_codigo']."'>Modificar</a></td>";
                         }
                     }
                 }else{

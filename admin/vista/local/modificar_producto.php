@@ -1,12 +1,12 @@
 <?php
     session_start();
     $codigoUsr = $_SESSION['usuario'];
+    $codigoPro = $_GET["codigo"];
     if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
         header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
     }
     
     include '../../../config/conexionBD.php';
-    
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,62 +61,63 @@
             <ul>
                 <li><a href="productos.php">DETALLE DE PRODUCTOS</a></li>
                 <li><a href="anadir_productos.php">ANADIR PRODUCTO</a></li>
-                <li><a href="../../../config/cerrar_sesion.php">CERRAR SESION</a></li>
+                <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
-        <div class="contenedorTabla">
-        <table class="tablaLocales">
-            <tr>
-                <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Detalle</th>
-                <th>Categoria</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th colspan="2">Accion</th>
-            </tr>
 
+        <?php
+            $sql = "SELECT * FROM producto where pro_codigo=$codigoPro";
+            include '../../../config/conexionBD.php';
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                while($row = $result->fetch_assoc()) {
+        ?>
+                    <form class="formEditarPerfil" method="POST" action="../../controladores/local/modificar_producto.php" enctype="multipart/form-data">
+                        <h4>MODIFICAR PRODUCTO</h4>
+                        <input type="hidden" id="codigoP" name="codigoP" value="<?php echo $codigoPro ?>" />
+                        <label>Nombre</label>
+                        <input type="text" name="nombreP" id="nombresP" class="campoED" value="<?php echo $row["pro_nombre"]?>">
+                        <label>Detalle</label>
+                        <input type="text" name="detalleP" id="detalleP" class="campoED" value="<?php echo $row["pro_detalle"]?>">
+                        <label>Precio</label>
+                        <input type="text" name="precioP" id="precioP" class="campoED" value="<?php echo $row["pro_precio"]?>">
+                        <label>Categoria</label>
+                        <?php
+                            $pro_cat_codigo=$row['pro_cat_codigo'];
+                            $sqlC = "SELECT cat_nombre FROM categoria WHERE cat_codigo=$pro_cat_codigo";
+                            $res=$conn->query($sqlC);
+                            $rowC=mysqli_fetch_array($res);
+                            $categoria = $rowC["cat_nombre"]; 
+                            echo "<h5> Categoria anterior: ".$categoria."</h5>";       
+                        ?>
+                        <select name="categoriaP">
+                            <?php
+                                $sql1 = "SELECT * FROM categoria";
+                                $rec=$conn->query($sql1);
+                                while($rowC=mysqli_fetch_array($rec)){
+                                    echo "<option value='".$rowC['cat_codigo']."'>";
+                                    echo $rowC['cat_nombre'];
+                                    echo "</option>";
+                                }
+                            ?>
+                        </select>
+                        <br>
+                        <br>
+                        <label>Cantidad</label>
+                        <input type="text" name="cantidadP" id="cantidadP" class="campoED" value="<?php echo $row["pro_cantidad"]?>">
+                        <input type="submit" name="btnP" id="btnP" value="AÑADIR PRODUCTO">
+                    </form>
             <?php
-
-                $sql = "SELECT * FROM producto WHERE pro_loc_codigo=$codigoUsr";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0){
-                    while($row = $result->fetch_assoc()){
-                        if($row["pro_eliminado"]!='S'){
-                            echo "<tr>";
-                            echo "<td>" .$row["pro_codigo"]."</td>";
-                            echo "<td>" .$row["pro_nombre"]."</td>";
-                            echo "<td>" .$row["pro_detalle"]."</td>";
-                            echo "<td>" .buscarCat($row["pro_cat_codigo"])."</td>";
-                            echo "<td>" .$row["pro_precio"]."</td>";
-                            echo "<td>" .$row["pro_cantidad"]."</td>";
-                            echo "<td class='accion'><a href='../../vista/local/modificar_producto.php?codigo=".$row['pro_codigo']."'>Modificar</a></td>";
-                            echo "<td class='accion'><a href='../../controladores/local/eliminar_producto.php?codigo=".$row['pro_codigo']."'>Eliminar</a></td>";
-                        }
-                    }
-                }else{
-                    echo "<tr>";
-                    echo "<td colspan='7'>No existen productos registrados en el sistema</td>";
-                    echo "</tr>";
                 }
+            } else {
+                echo "<p>Ha ocurrido un error inesperado !</p>";
+                echo "<p>" . mysqli_error($conn) . "</p>";
+            }
                 $conn->close();
-                $catName="";
-                function buscarCat($codigo){
-                    include '../../../config/conexionBD.php';
-                    $sqli = "SELECT cat_nombre FROM categoria WHERE cat_codigo='$codigo'";
-                    $result = $conn->query($sqli);
-                    if($result->num_rows > 0){
-                        while($row = $result->fetch_assoc()){
-                            $catName=$row['cat_nombre'];
-                        }
-                    }
-                    return $catName;
-                }
-
             ?>
-        </table>
-        </div>
+
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">
@@ -157,3 +158,4 @@
         </footer>
     </body>
 </html>
+
