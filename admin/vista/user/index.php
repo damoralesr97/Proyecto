@@ -105,14 +105,14 @@
             <aside class="categorias">
                 <h3>CATEGORIAS</h3>
                 <ul>
-                    <li><a href="">ACABADOS DE CASA</a></li>
-                    <li><a href="">ADITIVOS</a></li>
-                    <li><a href="">BASICOS DE LA CONSTRUCCION</a></li>
-                    <li><a href="">ELECTRICO</a></li>
-                    <li><a href="">FERRETERIA</a></li>
-                    <li><a href="">HIDROSANITARIA</a></li>
-                    <li><a href="">HOGAR</a></li>
-                    <li><a href="">INDUSTRIA</a></li>
+                    <li><a href="acabados_casa.php">ACABADOS DE CASA</a></li>
+                    <li><a href="aditivos.php">ADITIVOS</a></li>
+                    <li><a href="basicos_cons.php">BASICOS DE LA CONSTRUCCION</a></li>
+                    <li><a href="electrico.php">ELECTRICO</a></li>
+                    <li><a href="ferreteria.php">FERRETERIA</a></li>
+                    <li><a href="hidro.php">HIDROSANITARIA</a></li>
+                    <li><a href="hogar.php">HOGAR</a></li>
+                    <li><a href="industria.php">INDUSTRIA</a></li>
                 </ul>
             </aside>
             <div class="contenido">

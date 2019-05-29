@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ferreteria - Productos</title>
+        <title>Ferreteria - Home</title>
         <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
         <script type="text/javascript" src="../../js/funciones.js"></script>
     </head>
@@ -32,16 +32,16 @@
                     </ul>
                 </nav>
                 <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
+                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProducto()"/>
+                    <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
+                    <a href="carrito.php">Carrito</a>
                 </div>
             </div>
         </header>
-        <aside class="categorias">
+            <aside class="categorias">
                 <h3>CATEGORIAS</h3>
                 <ul>
                     <li><a href="acabados_casa.php">ACABADOS DE CASA</a></li>
@@ -54,44 +54,49 @@
                     <li><a href="industria.php">INDUSTRIA</a></li>
                 </ul>
             </aside>
+            <div id = "menuProd" class = "productos">
+                <?php             
+                    
+                    $sql = "SELECT * FROM producto WHERE pro_loc_codigo='".$_SESSION["local"]."' AND pro_cat_codigo=6";
+                    $result = $conn->query($sql);
+                    $i=0;
+                    if ($result->num_rows > 0) { 
+                            
+                        while($row = $result->fetch_assoc()) { 
 
-            <article class="prods">
-                <table>
+                            if($row["pro_eliminado"]!='S'){
 
-                    <?php
-                        $sql = "SELECT * FROM producto WHERE pro_loc_codigo='".$_SESSION["local"]."' and pro_cat_codigo=6";
-                        $result = $conn->query($sql);
-                        $i=0;
-                        if ($result->num_rows > 0){
-                            while($row = $result->fetch_assoc()){
-                                if($row["pro_eliminado"]!='S'){
-                                    echo "<tr>";
+                            echo "<article class='contenidoProductos'>";
+
+                                $sqli ="SELECT pro_imagen FROM producto WHERE pro_codigo=$row[pro_codigo]";
+                                $stm = $conn->query($sqli);
+                                while ($datos = $stm->fetch_object()){
                                     
-                                    $sqli ="SELECT pro_imagen FROM producto WHERE pro_codigo=$row[pro_codigo]";
-                                    $stm = $conn->query($sqli);
-                                    while ($datos = $stm->fetch_object()){
-                                        
-                                        echo "<td>  <img src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
-                                    }
-                                    $i=$i+1;
-                                    echo "<td id='titP'>".$row["pro_nombre"]."</td>";
-                                    echo "<td>".$row["pro_detalle"]."</td>";
-                                    echo "<td><strong>Stock: </strong>".$row["pro_cantidad"]."</td>";
-                                    echo "<td><i>".$row["pro_precio"]."$<i></td>";
-                                    echo "<td> <button onclick='disminuir(".$i.")' >-</button> <input type='text' name='txtC".$i."' id='txtC".$i."' value='1'> <button onclick='aumentar(".$i.")' >+</button> </td>";
-                                    echo "<td><a href=''>Agregar al carrito</a></td>";
+                                    echo "<a href='productoSelect.php?codigo=".$row['pro_codigo']."'><img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'/></a>";
                                 }
-                            }
-                        }else{
-                            echo "<tr>";
-                            echo "<td colspan='7'>No existen productos registrados en el sistema</td>";
-                            echo "</tr>";
-                        }
-                        $conn->close();
-                    ?>
-                </table>
-            </article>
+                                $i=$i+1;
+                                echo "<br>";        
+                                echo $row['pro_nombre']; 
+                                echo "<br>";     
+                                echo "$".$row['pro_precio']." INCLUYE IVA"; 
+                                echo "<br>";
+
+                            echo "</article>";                                             
+                            
+                            }      
+                        } 
+
+                    } else {                 
+                        echo "<tr>";                 
+                        echo "<td colspan='7'> No existen productos </td>";                 
+                        echo "</tr>"; 
             
+                    }
+                        
+                    $conn->close();          
+                ?>
+            </div>
+
             <footer>
                 <div class="contenidoPie">
                     <div class="infoPie">

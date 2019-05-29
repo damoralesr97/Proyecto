@@ -1,25 +1,55 @@
 <?php
     session_start();
     $_SESSION["local"];
-    include '../../config/conexionBD.php'
+    $codigoUsr = $_SESSION['usuario'];
+    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "2"){
+        header("Location: ../../../public/vista/elegir_local.php");
+    }
+    include '../../../config/conexionBD.php'
 ?>
 <!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ferreteria - Home</title>
-        <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
-        <script type="text/javascript" src="../../js/funciones.js"></script>
+        <title>Ferreteria - Productos</title>
+        <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
+        <script type="text/javascript" src="../../../js/funciones.js"></script>
     </head>
     <body>
-        <header>
+    <header>
             <div class="topHeader">
-                <a href="mi_cuenta.php" class="nombreUser">INICIAR SESION O REGISTRARME</a>
+                
+            <?php
+                $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
+                $stm = $conn->query($sqli);
+                while ($datos = $stm->fetch_object()){
+            ?>
+                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
+            <?php   
+                }
+            ?>
+
+                <ul>
+                <?php
+                    $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                                <ul>
+                                    <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
+                                    <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
+                                </ul>
+                            </li>";
+                        }
+                    }
+                ?>
+                </ul>
             </div>
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="home.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
+                        <li><a href="index.php">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
@@ -32,12 +62,13 @@
                     </ul>
                 </nav>
                 <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProducto()"/>
+                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProductoUsr()"/>
                     <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
-                    <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="carrito.php">Carrito</a>
+                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
+                    <a href="">Carrito</a>
+                    <i id="precio">$ 0.00</i>
                 </div>
             </div>
         </header>
@@ -56,8 +87,8 @@
             </aside>
             <div id = "menuProd" class = "productos">
                 <?php             
-                    include '../../config/conexionBD.php';  
-                    $sql = "SELECT * FROM producto WHERE pro_loc_codigo=".$_SESSION["local"];
+                    include '../../../config/conexionBD.php';  
+                    $sql = "SELECT * FROM producto WHERE pro_loc_codigo='".$_SESSION["local"]."' AND pro_cat_codigo=5";
                     $result = $conn->query($sql);
                     $i=0;
                     if ($result->num_rows > 0) { 
@@ -79,7 +110,8 @@
                                 echo $row['pro_nombre']; 
                                 echo "<br>";     
                                 echo "$".$row['pro_precio']." INCLUYE IVA"; 
-                                
+                                echo "<br>";
+
                             echo "</article>";                                             
                             
                             }      

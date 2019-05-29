@@ -76,21 +76,21 @@
             <aside class="categorias">
                 <h3>CATEGORIAS</h3>
                 <ul>
-                    <li><a href="">ACABADOS DE CASA</a></li>
-                    <li><a href="">ADITIVOS</a></li>
-                    <li><a href="">BASICOS DE LA CONSTRUCCION</a></li>
-                    <li><a href="">ELECTRICO</a></li>
-                    <li><a href="">FERRETERIA</a></li>
-                    <li><a href="">HIDROSANITARIA</a></li>
-                    <li><a href="">HOGAR</a></li>
-                    <li><a href="">INDUSTRIA</a></li>
+                    <li><a href="acabados_casa.php">ACABADOS DE CASA</a></li>
+                    <li><a href="aditivos.php">ADITIVOS</a></li>
+                    <li><a href="basicos_cons.php">BASICOS DE LA CONSTRUCCION</a></li>
+                    <li><a href="electrico.php">ELECTRICO</a></li>
+                    <li><a href="ferreteria.php">FERRETERIA</a></li>
+                    <li><a href="hidro.php">HIDROSANITARIA</a></li>
+                    <li><a href="hogar.php">HOGAR</a></li>
+                    <li><a href="industria.php">INDUSTRIA</a></li>
                 </ul>
             </aside>
 
             <article class="prods">
                 <table id = "menuProd">
 
-                    <?php
+                <?php
                         $sql = "SELECT * FROM producto WHERE pro_codigo='$pro_codigo' AND pro_loc_codigo=".$_SESSION["local"];
                         $result = $conn->query($sql);
                         $i=0;
@@ -105,13 +105,13 @@
                                         
                                         echo "<td>  <img src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
                                     }
-                                    $i=$i+1;
+                                    echo "<form method='post' action=agregar.php?cantidad=0&codigo=".$row['pro_codigo'].">";
                                     echo "<td id='titP'>".$row["pro_nombre"]."</td>";
                                     echo "<td>".$row["pro_detalle"]."</td>";
                                     echo "<td><strong>Stock: </strong>".$row["pro_cantidad"]."</td>";
                                     echo "<td><i>".$row["pro_precio"]."$<i></td>";
-                                    echo "<td> <button onclick='disminuir(".$i.")' >-</button> <input type='text' name='txtC".$i."' id='txtC".$i."' value='1'> <button onclick='aumentar(".$i.")' >+</button> </td>";
-                                    echo "<td><a href=''>Agregar al carrito</a></td>";
+                                    echo "<td> <input type='button' onclick='disminuir()' value='-' > <input type='text' name='txtC' id='txtC' value='1'> <input type='button' onclick='aumentar()' value='+'> </td>";
+                                    echo "<td><input type='submit' value='Agregar al carrito'></td>";
                                 }
                             }
                         }else{
