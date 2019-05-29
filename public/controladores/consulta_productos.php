@@ -24,7 +24,7 @@
                         $stm = $conn->query($sqli);
                         while ($datos = $stm->fetch_object()){
                             
-                            echo "<td>  <img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
+                            echo "<a href='productoSelect.php?codigo=".$row['pro_codigo']."'><img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'/></a>";
                         }
                         $i=$i+1;
                         echo "<br>";        
@@ -32,7 +32,6 @@
                         echo "<br>";     
                         echo "$".$row['pro_precio']." INCLUYE IVA"; 
                         echo "<br>";
-                        echo "<a href=''><img class = 'imgCarrito' src='../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
 
                     echo "</article>";                                             
                 
@@ -65,7 +64,7 @@
                     $stm = $conn->query($sqli);
                     while ($datos = $stm->fetch_object()){
                         
-                        echo "<td>  <img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'>  </td>";
+                        echo "<a href='productoSelect.php?codigo=".$row['pro_codigo']."'><img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'/></a>";
                     }
                     $i=$i+1;
                     echo "<br>";        
@@ -73,7 +72,6 @@
                     echo "<br>";     
                     echo "$".$row['pro_precio']." INCLUYE IVA"; 
                     echo "<br>";
-                    echo "<a href=''><img class = 'imgCarrito' src='../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
 
                 echo "</article>";                                             
                 

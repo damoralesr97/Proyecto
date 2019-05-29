@@ -82,7 +82,6 @@
                                 echo "<br>";     
                                 echo "$".$row['pro_precio']." INCLUYE IVA"; 
                                 echo "<br>";
-                                echo "<a href=''><img class = 'imgCarrito' src='../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
 
                             echo "</article>";                                             
                             

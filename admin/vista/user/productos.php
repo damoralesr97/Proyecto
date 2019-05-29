@@ -59,7 +59,7 @@
                     </ul>
                 </nav>
                 <div class="busqueda">
-                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProducto()"/>
+                    <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProductoUsr()"/>
                     <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
@@ -108,7 +108,6 @@
                                 echo "<br>";     
                                 echo "$".$row['pro_precio']." INCLUYE IVA"; 
                                 echo "<br>";
-                                echo "<a href=''><img class = 'imgCarrito' src='../../../imagenes/iconos/carrito.png' alt='imgCarro'> </a>";
 
                             echo "</article>";                                             
                             
