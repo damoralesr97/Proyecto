@@ -1,7 +1,6 @@
 <?php
     session_start();
-    $codL=$_GET["codigo"];
-    $_SESSION["local"] = $codL;
+    $_SESSION["local"];
 ?>
 <!Doctype html>
 <html>
@@ -18,7 +17,7 @@
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="home.php?codigo=<?php echo $_SESSION["local"] ?">INICIO</a></li>
+                        <li><a href="home.php?codigo=<?php echo $_SESSION["local"] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="">QUIENES SOMOS</a></li>
