@@ -12,8 +12,60 @@
         <meta charset="UTF-8">
         <title>Ferreteria - Local</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc"></script>
+        <script type="text/javascript">
+            function initialize(lat,lng) {
+                // Creating map object
+                var map = new google.maps.Map(document.getElementById('map_canvas'), {
+                    zoom: 14,
+                    center: new google.maps.LatLng(lat,lng),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                // creates a draggable marker to the given coords
+                var vMarker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat,lng),
+                    draggable: true
+                });
+
+                // adds a listener to the marker
+                // gets the coords when drag event ends
+                // then updates the input with the new coords
+                google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+                    //$("#txtLat").val(evt.latLng.lat().toFixed(6));
+                    //$("#txtLng").val(evt.latLng.lng().toFixed(6));
+                    document.getElementById('txtLat').value = evt.latLng.lat().toFixed(6)
+                    document.getElementById('txtLng').value = evt.latLng.lng().toFixed(6)
+
+                    map.panTo(evt.latLng);
+                });
+
+                // centers the map on markers coords
+                map.setCenter(vMarker.position);
+
+                // adds the marker on the map
+                vMarker.setMap(map);
+            }
+        </script>
+
     </head>
-    <body>
+    
+    <?php
+        $sql = "SELECT * FROM local WHERE loc_codigo=".$_SESSION['usuario'];
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+    ?>
+    <body onload="initialize(<?php echo floatval($row['loc_latitud']) ?>,<?php echo floatval($row['loc_longitud']) ?>)">
+    <?php
+            }
+        }
+    ?>
+
     <header>
         <div class="topHeader">
         
@@ -47,7 +99,7 @@
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="productos.php">PRODUCTOS</a></li>
-                    <li><a href="">FACTURAS</a></li>
+                    <li><a href="facturas.php">FACTURAS</a></li>
                 </ul>
             </nav>
         </div>
@@ -64,12 +116,15 @@
         <p><?php echo $row['loc_direccion'] ?></p>
         <label>CORREO</label>
         <p><?php echo $row['loc_correo'] ?></p>
+        
     <?php
             }
         }
     }
     ?>
+        
     </article>
+    <div id="map_canvas" style="width: 80%; height: 500px; margin: auto;"></div>
     <footer>
         <div class="contenidoPie">
             <div class="infoPie">

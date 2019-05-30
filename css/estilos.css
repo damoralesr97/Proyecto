@@ -793,3 +793,53 @@ body {
     margin: 20px auto;
 }
 
+/*ESTILOS PARA FACTURA DETALLE Y ANULAR FACTURA: LOCAL*/
+.factM{
+    width: 75%;
+    float: left;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.factM label, .factM #ubic{
+    margin: 15px auto;
+    display: block;
+}
+
+.factM input{
+    width: 80%;
+    padding: 15px 10px;
+    margin: 7px auto;
+    text-align: center;
+}
+
+.factM #map_canvas{
+    margin: 0 auto 25px;
+}
+
+.factM #anul{
+    color: white;
+    background: #E74C3C;
+    padding: 15px 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.factMT, .factMT th, .factMT td{
+    border: 1px solid #1C2833;
+}
+
+.factMT{
+    width: 80%;
+    margin: auto;
+}
+
+.factMT th{
+    background: #E74C3C;
+    color: white;
+}
+
+.factMT td{
+    padding: 5px;
+}

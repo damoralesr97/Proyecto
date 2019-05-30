@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $cF=$_GET['fac'];
     $codigoUsr=$_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "3"){
         header("Location: ../../../public/vista/elegir_local.php");
@@ -12,6 +13,7 @@
         <meta charset="UTF-8">
         <title>Editar Perfil - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -52,21 +54,23 @@
             }
         </script>
 
+
     </head>
-    
+
+
     <?php
-        $sql = "SELECT * FROM local WHERE loc_codigo=".$_SESSION['usuario'];
+        $sql = "SELECT * FROM factura_cabecera WHERE fc_codigo=$cF";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             while($row = $result->fetch_assoc()){
     ?>
-    <body onload="initialize(<?php echo floatval($row['loc_latitud']) ?>,<?php echo floatval($row['loc_longitud']) ?>)">
+    <body onload="initialize(<?php echo floatval($row['fc_latitud']) ?>,<?php echo floatval($row['fc_longitud']) ?>)">
     <?php
             }
         }
     ?>
 
-    <header>
+<header>
         <div class="topHeader">
 
             <?php
@@ -87,10 +91,12 @@
                     while($row = $result->fetch_assoc()){
                         echo "<li><a href='' class='nombreUser'><i>Local </i>".$row['loc_nombre']."</a>
                             <ul>
-                                <li><a href='editar_informacion.php'>Editar mi perfil</a></li>
+                                <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
+                    }
+                }
             ?>
             </ul>
             </div>
@@ -105,39 +111,91 @@
             </div>
         </header>
         <aside class="categorias">
-            <h3>MENU</h3>
+            <h3>FACTURAS</h3>
             <ul>
-                <li><a href="editar_informacion.php">DETALLES DE LA CUENTA</a></li>
-                <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
-                <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
-                <li><a href="">CERRAR SESION</a></li>
+                <li><a href="facturas.php">DETALLE DE FACTURAS</a></li>
+                <li><a href="facturas_anuladas.php">FACTURAS ANULADAS</a></li>
+                <li><a href="../../../config/cerrar_sesion.php">CERRAR SESION</a></li>
             </ul>
         </aside>
-
-        <form class="formEditarPerfil" method="POST" action="../../controladores/local/modificar.php">
-            <h4>EDITAR MI PERFIL</h4>
-            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
-            <label>Nombre</label>
-            <input type="text" name="nombreEd" id="nombreEd" value="<?php echo $row["loc_nombre"] ?>" class="campoED">
-            <label>Telefono</label>
-            <input type="text" name="telefonoEd" id="telefonoEd" value="<?php echo $row["loc_telefono"] ?>" class="campoED">
-            <label>DIRECCION</label>
-            <input type="text" name="direccionEd" id="direccionEd" value="<?php echo $row["loc_direccion"] ?>" class="campoED">
-            <input type="hidden" id="txtLat" name="txtLat" value="<?php echo $row['loc_latitud'] ?>">
-            <input type="hidden" id="txtLng" name="txtLng" value="<?php echo $row['loc_longitud'] ?>">
-            <div id="map_canvas" style="width: 80%; height: 500px;"></div>
-            <label>Correo</label>
-            <input type="text" name="correoEd" id="correoEd" value="<?php echo $row["loc_correo"] ?>" class="campoED">
-            <input type="submit" name="editar" id="editar" value="GUARDAR LOS CAMBIOS">
-        </form>
+        
         <?php
+            function nombreLocal($codigo){
+                include '../../../config/conexionBD.php';
+                $sql = "SELECT * FROM local WHERE loc_codigo=$codigo";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                             return $row['loc_nombre'];
+                        }
+                    }
             }
-        }else{
-            echo "<p>Ha ocurrido un error inesperdado</p>";
-            echo "<p>".mysqli_error($conn)."</p>";
-        }
-        $conn->close();
+            function nombreUsuario($codigo){
+                include '../../../config/conexionBD.php';
+                $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigo";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                             return $row['usu_nombres']." ".$row['usu_apellidos'];
+                        }
+                    }
+            }
         ?>
+
+
+        <div class="factM">
+            <label>Cliente:</label>
+            <input type="text" id="nombre" name="nombre" value="<?php echo nombreUsuario($_GET['usu']);?>" disabled>
+            <label>Local:</label>
+            <input type="text" id="local" name="local" value="<?php echo nombreLocal($_SESSION['local']);?>" disabled>
+        <table class="factMT">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th></th>
+            </tr>
+
+            <?php
+                $total=0;
+                $dir="";
+                $sql = "SELECT * FROM factura_cabecera, factura_detalle WHERE fc_codigo=fd_fc_codigo and fc_codigo=".$cF;
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        if($row["fc_eliminado"]!='S'){
+                            echo "<tr>";
+                            echo "<td>" .$row["fd_pro_codigo"]."</td>";
+                            echo "<td>" .$row["fd_cantidad"]."</td>";
+                            echo "<td>" .$row["fd_precio"]."</td>";
+                            echo "<td>" .$row["fd_total"]."</td>";
+                            $total=(float)$total+(float)$row["fd_total"];
+                            $dir=$row['fc_direccion'];
+                        }
+                    }
+                    echo "<tr>";
+                    echo "<td colspan='3'>TOTAL</td>";
+                    echo "<td id='totApgr'>".$total."</td>";                   
+                    echo "</tr>";
+                }else{
+                    echo "<tr>";
+                    echo "<td colspan='4'>No tienes pedidos en tu cuenta!!!</td>";
+                    echo "</tr>";
+                }
+                $conn->close();
+            ?>
+        </table>
+
+        <label>Enviar Pedido A:</label>
+        <input type="text" id="direccion" name="direccion" value="<?php echo $dir ?>" disabled>
+        <div id="map_canvas" style="width: 80%; height: 500px;"></div>
+
+
+        </div>
+
+
+        
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

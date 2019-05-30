@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Productos - Ferreteria</title>
+        <title>Facturas - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
@@ -56,66 +56,48 @@
             </div>
         </header>
         <aside class="categorias">
-            <h3>PRODUCTOS</h3>
+            <h3>FACTURAS</h3>
             <ul>
-                <li><a href="productos.php">DETALLE DE PRODUCTOS</a></li>
-                <li><a href="anadir_productos.php">ANADIR PRODUCTO</a></li>
+                <li><a href="facturas.php">DETALLE DE FACTURAS</a></li>
+                <li><a href="facturas_anuladas.php">FACTURAS ANULADAS</a></li>
                 <li><a href="../../../config/cerrar_sesion.php">CERRAR SESION</a></li>
             </ul>
         </aside>
+
         <div class="contenedorTabla">
         <table class="tablaLocales">
             <tr>
-                <th>Codigo</th>
-                <th>Nombre</th>
+                <th>Factura Num</th>
+                <th>Cliente</th>
+                <th>Fecha Emision</th>
                 <th>Detalle</th>
-                <th>Categoria</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th colspan="2">Accion</th>
             </tr>
 
             <?php
 
-                $sql = "SELECT * FROM producto WHERE pro_loc_codigo=$codigoUsr";
+                $sql = "SELECT * FROM factura_cabecera WHERE fc_loc_codigo=$codigoUsr and fc_eliminado='S'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        if($row["pro_eliminado"]!='S'){
+                        if($row["fc_eliminado"]!='N'){
                             echo "<tr>";
-                            echo "<td>" .$row["pro_codigo"]."</td>";
-                            echo "<td>" .$row["pro_nombre"]."</td>";
-                            echo "<td>" .$row["pro_detalle"]."</td>";
-                            echo "<td>" .buscarCat($row["pro_cat_codigo"])."</td>";
-                            echo "<td>" .$row["pro_precio"]."</td>";
-                            echo "<td>" .$row["pro_cantidad"]."</td>";
-                            echo "<td class='accion'><a href='../../vista/local/modificar_producto.php?codigo=".$row['pro_codigo']."'>Modificar</a></td>";
-                            echo "<td class='accion'><a href='../../controladores/local/eliminar_producto.php?codigo=".$row['pro_codigo']."'>Eliminar</a></td>";
+                            echo "<td>" .$row["fc_codigo"]."</td>";
+                            echo "<td>" .$row["fc_usu_codigo"]."</td>";
+                            echo "<td>" .$row["fc_fecha_creacion"]."</td>";
+                            echo "<td><a href='factura_detalle.php?usu=".$row["fc_usu_codigo"]."&fac=".$row["fc_codigo"]."'>Ver</a></td>";
                         }
                     }
                 }else{
                     echo "<tr>";
-                    echo "<td colspan='7'>No existen productos registrados en el sistema</td>";
+                    echo "<td colspan='4'>No existen facturas anuladas en el sistema.</td>";
                     echo "</tr>";
                 }
                 $conn->close();
-                $catName="";
-                function buscarCat($codigo){
-                    include '../../../config/conexionBD.php';
-                    $sqli = "SELECT cat_nombre FROM categoria WHERE cat_codigo='$codigo'";
-                    $result = $conn->query($sqli);
-                    if($result->num_rows > 0){
-                        while($row = $result->fetch_assoc()){
-                            $catName=$row['cat_nombre'];
-                        }
-                    }
-                    return $catName;
-                }
-
             ?>
         </table>
         </div>
+
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

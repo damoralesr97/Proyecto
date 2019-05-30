@@ -49,8 +49,8 @@
             <nav class="menu">
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
-                    <li><a href="">PRODUCTOS</a></li>
-                    <li><a href="">FACTURAS</a></li>
+                    <li><a href="productos.php">PRODUCTOS</a></li>
+                    <li><a href="facturas.php">FACTURAS</a></li>
                 </ul>
             </nav>
             </div>

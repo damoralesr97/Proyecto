@@ -19,11 +19,13 @@
             $telefono = isset($_POST["telefonoEd"]) ? trim($_POST["telefonoEd"]) : null;
             $direccion = isset($_POST["direccionEd"]) ? mb_strtoupper(trim($_POST["direccionEd"]), 'UTF-8') : null;
             $mail = isset($_POST["correoEd"]) ? trim($_POST["correoEd"]) : null;
+            $lat = $_POST["txtLat"];
+            $lon = $_POST["txtLng"];
 
             date_default_timezone_set("America/Guayaquil");
             $fecha = date('Y-m-d H:i:s',time());
 
-            $sql = "UPDATE local SET loc_nombre = '$nombre', loc_telefono = '$telefono', loc_direccion = '$direccion', loc_correo = '$mail', loc_fecha_modificacion = '$fecha' WHERE loc_codigo = $codigo";
+            $sql = "UPDATE local SET loc_nombre = '$nombre', loc_telefono = '$telefono', loc_direccion = '$direccion', loc_correo = '$mail', loc_fecha_modificacion, loc_latitud='$lat', loc_longitud='$lon' = '$fecha' WHERE loc_codigo = $codigo";
             
             if ($conn->query($sql) == TRUE){
                 echo "Se ha actualizado los datos personales correctamente!!!<br>";
