@@ -4,16 +4,15 @@
     $codigoUsr = $_SESSION['usuario'];
     include '../../../config/conexionBD.php'
 ?>
-<!DOCTYPE html>
+<!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ferreteria - Carrito</title>
+        <title>Mision y Vision - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
-        <script type="text/javascript" src="../../js/funciones.js"></script>
     </head>
     <body>
-        <header>
+    <header>
         <div class="topHeader">
                 
                 <?php
@@ -68,41 +67,32 @@
                 </div>
             </div>
         </header>
-
-        <div class="carroC">
-        <?php
-        $total=0;
-        if(isset($_SESSION['carrito'])){
-            $arreglo = $_SESSION['carrito'];
-            echo "<table border='1px'><th>Nombre</th><th>Precio</th><th>Cantidad</th><th>Accion</th>";
-            $i=0;
-            foreach($arreglo as $key => $fila){
-                echo "<tr>";
-                echo "<td>".$fila['nombre']."</td>";
-                echo "<td> $ ".number_format($fila['precio'],2,".",".")."</td>";
-                echo "<td>".$fila['cantidad']."</td>";
-                echo "<td><a href='eliminar.php?indice=".$i."'>Eliminar</a></td>";
-                $i++;
-                $total=(float)$total+(float)$fila['precio']*(float)$fila['cantidad'];
-                echo "<tr>";
-            }
-            echo "<td class='preciolbl' colspan=3><b>Total:</b> $</td>";
-            echo "<td>".$total."</td>";
-            $_SESSION['total']=$total;
-            echo "</table>";
-        }else{
-            echo "<br>";
-            echo "no hay productos";
-            echo "<br>";
-            echo "<br>";
-        }
-        echo "<a class='reglbl' href='productos.php'>SEGUIR COMPRANDO</a>";
-        echo "<a class='reglbl' href='confirmar_compra.php'>COMPRAR</a>";
-    ?>
-        </div>
-
-
-        <footer>
+            <div>
+                <article>
+                    <div>
+                            <article class="imagenesContenido">
+                            <img src="../../../imagenes/img/imgCont1.png" alt="Imagenes promociones" class="imagenCabecera">
+                        </article>
+                    </div>
+                    <h1 class="tituloContenido">Mision</h1>
+                    <p class="contenidoTexto">
+                            Somos una empresa que trabaja para brindar a sus clientes la mayor diversidad en materiales de construcción 
+                            y de ferretería en general, bajo premisas de precio, calidad y servicio acorde a las exigencias del mercado,
+                            comprometiéndonos con la capacitación constante de nuestro recurso humano, para que este sea altamente
+                            calificado, productivo y comprometido a mantener la preferencia y satisfacción de nuestros clientes;
+                            con la finalidad de generar un crecimiento rentable, en beneficio de todos que nos permita mantener y mejorar
+                            cada día la calidad y servicio prestado.
+                    </p>
+                    <h1 class="">Vision</h1>
+                    <p class="contenidoTexto">
+                            Ser líderes en   el mercado ferretero y de construcción, ofreciendo un servicio rápido, eficiente y de
+                            calidad basado en la innovación continua con un equipo de trabajo capacitado, comprometiéndonos a brindar
+                            el mejor servicio, siendo los mejores en el mercado.
+                    </p>
+                </article>
+                
+            </div>
+            <footer>
                 <div class="contenidoPie">
                     <div class="infoPie">
                         <h3>INFORMACION DE CONTACTO</h3>
@@ -142,5 +132,3 @@
             </footer>
     </body>
 </html>
-
-

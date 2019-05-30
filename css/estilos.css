@@ -704,6 +704,7 @@ body {
     background: #E74C3C;
     padding: 15px 10px;
     border-radius: 15px;
+    margin: 0px 10px;
     font-weight: bold;
 }
 
@@ -741,5 +742,54 @@ body {
  */
 .ec-stars-wrapper > a:hover ~ a {
 	color: #888;
+}
+
+/*ESTILOS PARA CONFIRMAR COMPRA*/
+.confComp{
+    clear: both;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+}
+
+.confComp label{
+    display: block;
+    margin: 15px auto;
+}
+
+.confComp input[type="text"]{
+    width: 80%;
+    height: 35px;
+    text-align: center;
+}
+
+.confComp #map_canvas{
+    margin: 15px auto;
+}
+
+.confComp input[type="submit"]{
+    width: 17%;
+    height: 35px;
+    text-align: center;
+    background: #E74C3C;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    border: 1px solid #E74C3C;
+}
+
+#totApgr{
+    color: #E74C3C;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.ubi{
+    text-align: left;
+    margin: 20px 0;
+}
+
+.ubi #map_canvas{
+    margin: 20px auto;
 }
 

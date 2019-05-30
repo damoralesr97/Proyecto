@@ -39,6 +39,11 @@
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
+                    }
+                }else{
+                    echo "<p>Ha ocurrido un error inesperdado</p>";
+                    echo "<p>".mysqli_error($conn)."</p>";
+                }
             ?>
             </ul>
             </div>
@@ -50,7 +55,6 @@
                             <ul>
                                 <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
                                 <li><a href="misionVision.php">MISION Y VISION</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
@@ -79,29 +83,42 @@
             </ul>
         </aside>
 
-        <form class="formEditarPerfil" method="POST" action="../../controladores/user/modificar.php">
-            <h4>EDITAR MI PERFIL</h4>
-            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigoUsr ?>" class="campoED">
-            <label>Nombres</label>
-            <input type="text" name="nombresEd" id="nombresEd" value="<?php echo $row["usu_nombres"] ?>" class="campoED">
-            <label>Apellidos</label>
-            <input type="text" name="apellidosEd" id="apellidosEd" value="<?php echo $row["usu_apellidos"] ?>" class="campoED">
-            <label>Nick</label>
-            <input type="text" name="nickEd" id="nickEd" value="<?php echo $row["usu_nick"] ?>" class="campoED">
-            <label>Telefono</label>
-            <input type="text" name="telefonoEd" id="telefonoEd" value="<?php echo $row["usu_telefono"] ?>" class="campoED">
-            <label>Correo</label>
-            <input type="text" name="mailEd" id="mailEd" value="<?php echo $row["usu_correo"] ?>" class="campoED">
-            <input type="submit" name="editar" id="editar" value="GUARDAR LOS CAMBIOS">
-        </form>
-        <?php
-            }
-        }else{
-            echo "<p>Ha ocurrido un error inesperdado</p>";
-            echo "<p>".mysqli_error($conn)."</p>";
-        }
-        $conn->close();
-        ?>
+
+        <div class="contenedorTabla">
+        <table class="tablaLocales">
+            <tr>
+                <th>Factura Num</th>
+                <th>Local</th>
+                <th>Fecha Emision</th>
+                <th>Detalle</th>
+            </tr>
+
+            <?php
+
+                $sql = "SELECT * FROM factura_cabecera WHERE fc_usu_codigo=$codigoUsr";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        if($row["fc_eliminado"]!='S'){
+                            echo "<tr>";
+                            echo "<td>" .$row["fc_codigo"]."</td>";
+                            echo "<td>" .$row["fc_loc_codigo"]."</td>";
+                            echo "<td>" .$row["fc_fecha_creacion"]."</td>";
+                            echo "<td><a href='pedido_detalle.php?fac=".$row["fc_codigo"]."'>Ver</a></td>";}
+                    }
+                }else{
+                    echo "<tr>";
+                    echo "<td colspan='4'>No tienes pedidos en tu cuenta!!!</td>";
+                    echo "</tr>";
+                }
+                $conn->close();
+            ?>
+        </table>
+        </div>
+
+
+        
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

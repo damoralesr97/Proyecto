@@ -4,16 +4,15 @@
     $codigoUsr = $_SESSION['usuario'];
     include '../../../config/conexionBD.php'
 ?>
-<!DOCTYPE html>
+<!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ferreteria - Carrito</title>
+        <title>Quienes Somos - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
-        <script type="text/javascript" src="../../js/funciones.js"></script>
     </head>
     <body>
-        <header>
+    <header>
         <div class="topHeader">
                 
                 <?php
@@ -68,41 +67,31 @@
                 </div>
             </div>
         </header>
-
-        <div class="carroC">
-        <?php
-        $total=0;
-        if(isset($_SESSION['carrito'])){
-            $arreglo = $_SESSION['carrito'];
-            echo "<table border='1px'><th>Nombre</th><th>Precio</th><th>Cantidad</th><th>Accion</th>";
-            $i=0;
-            foreach($arreglo as $key => $fila){
-                echo "<tr>";
-                echo "<td>".$fila['nombre']."</td>";
-                echo "<td> $ ".number_format($fila['precio'],2,".",".")."</td>";
-                echo "<td>".$fila['cantidad']."</td>";
-                echo "<td><a href='eliminar.php?indice=".$i."'>Eliminar</a></td>";
-                $i++;
-                $total=(float)$total+(float)$fila['precio']*(float)$fila['cantidad'];
-                echo "<tr>";
-            }
-            echo "<td class='preciolbl' colspan=3><b>Total:</b> $</td>";
-            echo "<td>".$total."</td>";
-            $_SESSION['total']=$total;
-            echo "</table>";
-        }else{
-            echo "<br>";
-            echo "no hay productos";
-            echo "<br>";
-            echo "<br>";
-        }
-        echo "<a class='reglbl' href='productos.php'>SEGUIR COMPRANDO</a>";
-        echo "<a class='reglbl' href='confirmar_compra.php'>COMPRAR</a>";
-    ?>
-        </div>
-
-
-        <footer>
+            <div>
+                <article>
+                    <div>
+                            <article class="imagenesContenido">
+                            <img src="../../../imagenes/img/imgCont1.png" alt="Imagenes promociones" class="imagenCabecera">
+                        </article>
+                    </div>
+                    <h1 class="tituloContenido">Quienes Somos</h1>
+                    
+                    <p class="contenidoTexto">
+                        Ferreteria es una empresa líder en la comercialización de productos de ferretería, hogar, acabados y materiales 
+                        de construcción en el mercado ecuatoriano. Ofrece a sus clientes una experiencia de compra diferente,
+                        fundamentada en el servicio, variedad, garantía y calidad.
+                        El trabajo en conjunto e incesante en estos último años se ha enfocado, principalmente en lo referente al servicio,
+                        buscando llegar a todos los rincones del país con la mayor oferta de productos para el mejoramiento del hogar.
+                        Actualmente Ferreteria tiene almacenes estratégicamente ubicados en Cuenca,
+                        que cuenta con grandes superficies de exhibición y ventas, adecuadas a los intereses de los clientes.
+                        Además cabe recalcar que en el año 2010, se iniciaron las operaciones en un nuevo Centro de Distribución y 
+                        Logística, ubicado en Ricaurte.Cuenta con más de 36 mil metros cuadrados de bodegas y facilidades para almacenamiento,
+                        carga y descarga de mercaderías.
+                    </p>
+                </article>
+                
+            </div>
+            <footer>
                 <div class="contenidoPie">
                     <div class="infoPie">
                         <h3>INFORMACION DE CONTACTO</h3>
@@ -142,5 +131,3 @@
             </footer>
     </body>
 </html>
-
-

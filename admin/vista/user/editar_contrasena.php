@@ -50,12 +50,12 @@
                         <li><a href="index.php">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
-                                <li><a href="../../../public/vista/quienesSomos.php">QUIENES SOMOS</a></li>
-                                <li><a href="../../../public/vista/misionVision.php">MISION Y VISION</a></li>
+                                <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
+                                <li><a href="misionVision.php">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
-                        <li><a href="">PRODUCTOS</a></li>
+                        <li><a href="productos.php">PRODUCTOS</a></li>
                         <li><a href="">CONTACTO</a></li>
                     </ul>
                 </nav>
@@ -72,7 +72,7 @@
         <aside class="categorias">
             <h3>MENU</h3>
             <ul>
-                <li><a href="">PEDIDOS</a></li>
+                <li><a href="pedidos.php">PEDIDOS</a></li>
                 <li><a href="editar_perfil.php">DETALLES DE LA CUENTA</a></li>
                 <li><a href="editar_avatar.php">CAMBIAR AVATAR</a></li>
                 <li><a href="editar_contrasena.php">CAMBIAR CONTRASEÑA</a></li>
