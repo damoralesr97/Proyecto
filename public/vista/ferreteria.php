@@ -22,8 +22,8 @@
                         <li><a href="home.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
+                                <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
+                                <li><a href="misionVision.php">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
@@ -33,7 +33,6 @@
                 </nav>
                 <div class="busqueda">
                     <input type="search" name="buscar" id="buscar" placeholder="Buscar producto" onkeyup = "return buscarProducto()"/>
-                    <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">

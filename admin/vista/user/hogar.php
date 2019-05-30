@@ -52,8 +52,8 @@
                         <li><a href="index.php">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
+                                <li><a href="../../../public/vista/quienesSomos.php">QUIENES SOMOS</a></li>
+                                <li><a href="../../../public/vista/misionVision.php">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
@@ -68,7 +68,6 @@
                 <div class="carrito">
                     <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
                     <a href="">Carrito</a>
-                    <i id="precio">$ 0.00</i>
                 </div>
             </div>
         </header>

@@ -2,6 +2,7 @@
     session_start();
     $codL=$_GET["codigo"];
     $_SESSION["local"] = $codL;
+    include '../../config/conexionBD.php';
 ?>
 <!Doctype html>
 <html>
@@ -64,7 +65,6 @@
                 </nav>
                 <div class="busqueda">
                     <input type="search" name="buscar" id="buscar" placeholder="Buscar producto">
-                    <a href="">Buscar</a>
                 </div>
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">

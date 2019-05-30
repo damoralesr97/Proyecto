@@ -49,8 +49,8 @@
                         <li><a href="index.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
+                                <li><a href="../../../public/vista/quienesSomos.php">QUIENES SOMOS</a></li>
+                                <li><a href="../../../public/vista/misionVision.php">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
@@ -91,7 +91,10 @@
             $_SESSION['total']=$total;
             echo "</table>";
         }else{
+            echo "<br>";
             echo "no hay productos";
+            echo "<br>";
+            echo "<br>";
         }
         echo "<a class='reglbl' href='productos.php'>SEGUIR COMPRANDO</a>";
     ?>

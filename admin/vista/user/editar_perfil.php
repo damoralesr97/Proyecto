@@ -48,7 +48,8 @@
                         <li><a href="index.php">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
+                                <li><a href="../../../public/vista/quienesSomos.php">QUIENES SOMOS</a></li>
+                                <li><a href="../../../public/vista/misionVision.php">MISION Y VISION</a></li>
                                 <li><a href="">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>

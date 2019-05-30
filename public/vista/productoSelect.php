@@ -24,8 +24,8 @@
                         <li><a href="home.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
-                                <li><a href="">QUIENES SOMOS</a></li>
-                                <li><a href="">MISION Y VISION</a></li>
+                                <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
+                                <li><a href="misionVision.php">MISION Y VISION</a></li>
                                 <li><a href="">HISTORIA</a></li>
                             </ul>
                         </li>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="carrito">
                     <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
-                    <a href="">Carrito</a>
+                    <a href="carrito.php">Carrito</a>
                 </div>
             </div>
         </header>
@@ -92,7 +92,18 @@
                         $conn->close();
                     ?>
                 </table>
+                
             </article>
+
+            <div class="ec-stars-wrapper">
+                <a href="mi_cuenta.php" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+                <a href="mi_cuenta.php" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+                <a href="mi_cuenta.php" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+                <a href="mi_cuenta.php" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+                <a href="mi_cuenta.php" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+            </div>
+
+            
             
             <footer>
                 <div class="contenidoPie">
