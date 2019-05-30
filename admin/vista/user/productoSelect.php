@@ -150,7 +150,7 @@
 
             echo "<div><h5>La calificacion del producto es: $calificacion/5</h5></div>";
             
-            ?>
+    ?>
 
 
 

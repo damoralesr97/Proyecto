@@ -26,7 +26,7 @@
                             <ul>
                                 <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
                                 <li><a href="misionVision.php">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
+                                <li><a href="historia.php">HISTORIA</a></li>
                             </ul>
                         </li>
                         <li><a href="productos.php">PRODUCTOS</a></li>
@@ -102,6 +102,18 @@
                 <a href="mi_cuenta.php" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
                 <a href="mi_cuenta.php" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
             </div>
+
+            <?php
+            include '../../config/conexionBD.php';
+            $sqlC = "SELECT * FROM rating WHERE ra_pro_codigo='$pro_codigo'";
+            $resultC = $conn->query($sqlC);
+            $rowC = $resultC->fetch_assoc();
+            $calificacion = $rowC['ra_calificacion'];
+
+            echo "<div><h5>La calificacion del producto es: $calificacion/5</h5></div>";
+            
+            ?>
+
 
             
             
