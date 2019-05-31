@@ -100,7 +100,7 @@
                     while($row = $result->fetch_assoc()){
                         echo "<li><a href='' class='nombreUser'><i>Local </i>".$row['loc_nombre']."</a>
                             <ul>
-                                <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
+                                <li><a href='editar_informacion.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
                             </ul>
                         </li>";
