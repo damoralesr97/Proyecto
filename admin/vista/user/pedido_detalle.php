@@ -1,11 +1,34 @@
 <?php
     session_start();
     $cF=$_GET['fac'];
+    $lto=0;
+    $lno=0;
+    $ltd=0;
+    $lnd=0;
     $codigoUsr=$_SESSION['usuario'];
     if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "2"){
         header("Location: ../../../public/vista/elegir_local.php");
     }
     include '../../../config/conexionBD.php';
+
+    $sql = "SELECT * FROM factura_cabecera WHERE fc_codigo=".$cF;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            $ltd=$row['fc_latitud'];
+            $lnd=$row['fc_longitud'];
+        }
+    }
+
+    $sql = "SELECT * FROM local WHERE loc_codigo=".$_SESSION['local'];
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            $lto=$row['loc_latitud'];
+            $lno=$row['loc_longitud'];
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,60 +38,46 @@
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
 
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc"></script>
-        <script type="text/javascript">
-            function initialize(lat,lng) {
-                // Creating map object
-                var map = new google.maps.Map(document.getElementById('map_canvas'), {
-                    zoom: 14,
-                    center: new google.maps.LatLng(lat,lng),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
+        <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 1,
+          center: {lat: -2.908447, lng: -79.007989}
+        });
+        directionsDisplay.setMap(map);
 
-                // creates a draggable marker to the given coords
-                var vMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(lat,lng),
-                    draggable: true
-                });
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+      }
 
-                // adds a listener to the marker
-                // gets the coords when drag event ends
-                // then updates the input with the new coords
-                google.maps.event.addListener(vMarker, 'dragend', function (evt) {
-                    //$("#txtLat").val(evt.latLng.lat().toFixed(6));
-                    //$("#txtLng").val(evt.latLng.lng().toFixed(6));
-                    document.getElementById('txtLat').value = evt.latLng.lat().toFixed(6)
-                    document.getElementById('txtLng').value = evt.latLng.lng().toFixed(6)
-
-                    map.panTo(evt.latLng);
-                });
-
-                // centers the map on markers coords
-                map.setCenter(vMarker.position);
-
-                // adds the marker on the map
-                vMarker.setMap(map);
-            }
-        </script>
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: <?php echo (float)$lto ?>, lng: <?php echo (float)$lno ?>},  // Haight.
+          destination: {lat: <?php echo (float)$ltd ?>, lng: <?php echo (float)$lnd ?>},  // Ocean Beach.
+          // Note that Javascript allows us to access the constant
+          // using square brackets and a string value as its
+          // "property."
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status == 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc&callback=initMap">
+    </script>
 
 
     </head>
 
 
-    <?php
-        $sql = "SELECT * FROM factura_cabecera WHERE fc_codigo=$cF";
-        $result = $conn->query($sql);
-        if($result->num_rows > 0){
-            while($row = $result->fetch_assoc()){
-    ?>
-    <body onload="initialize(<?php echo floatval($row['fc_latitud']) ?>,<?php echo floatval($row['fc_longitud']) ?>)">
-    <?php
-            }
-        }
-    ?>
+    <body>
     <header>
         <div class="topHeader">
 
@@ -175,12 +184,20 @@
                     echo "<td colspan='4'>No tienes pedidos en tu cuenta!!!</td>";
                     echo "</tr>";
                 }
-                $conn->close();
             ?>
         </table>
         <div class="ubi">
         <label><b>Enviar Pedido A:</b> <?php echo $dir ?></label>
-        <div id="map_canvas" style="width: 80%; height: 500px;"></div>
+        <div id="floating-panel">
+            <b>Modo de Viaje: </b>
+            <select id="mode">
+                <option value="DRIVING">Coche</option>
+                <option value="WALKING">A Pie</option>
+                <option value="BICYCLING">Bicicleta</option>
+                <option value="TRANSIT">Transito</option>
+            </select>
+        </div>
+        <div id="map" style="width: 100%; height: 500px;"></div>
         </div>
 
 
