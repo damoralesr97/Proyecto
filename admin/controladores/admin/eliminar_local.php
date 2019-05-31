@@ -9,7 +9,7 @@
         <?php
             session_start();
             if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
-                header("Location: /Practicas/Proyecto/public/vista/elegir_local.php");
+                header("Location: /Proyecto/public/vista/elegir_local.php");
             }
             //Incluir conexion a la base de datos
             include '../../../config/conexionBD.php';

@@ -6,5 +6,5 @@
     $arreglo = array_values($arreglo);
     $_SESSION['carrito'] = $arreglo;
 
-    header("Location: carrito.php")
+    header("Location: /Proyecto/public/vista/carrito.php")
 ?>

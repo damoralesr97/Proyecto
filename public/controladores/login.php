@@ -14,10 +14,10 @@
         while($row = $result->fetch_assoc()){
                 $_SESSION['usuario']=$row['usu_codigo'];
                 $_SESSION['rol']=$row['usu_rol_codigo'];
-                header("Location: ../../admin/vista/user/index.php");
+                header("Location: /Proyecto/admin/vista/user/index.php");
         }
     }else{
-        header("Location: ../vista/mi_cuenta.php");
+        header("Location: /Proyecto/public/vista/mi_cuenta.php");
     }
 
     $conn->close();

@@ -10,7 +10,7 @@
     $fecha = date('Y-m-d H:i:s', time());
 
     if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "2"){
-        header("Location: ../../../public/vista/elegir_local.php");
+        header("Location: /Proyecto/public/vista/elegir_local.php");
     }
 
     $sql = "SELECT * FROM rating WHERE ra_pro_codigo = $ra_pro_codigo";

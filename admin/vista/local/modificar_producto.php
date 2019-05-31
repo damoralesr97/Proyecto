@@ -3,7 +3,7 @@
     $codigoUsr = $_SESSION['usuario'];
     $codigoPro = $_GET["codigo"];
     if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "3"){
-        header("Location: ../../../public/vista/elegir_local.php");
+        header("Location: /Proyecto/public/vista/elegir_local.php");
     }
     include '../../../config/conexionBD.php';
 ?>

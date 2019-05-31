@@ -28,5 +28,5 @@
 
         }
     }
-    header("Location: carrito.php")
+    header("Location: /Proyecto/public/vista/carrito.php")
 ?>
