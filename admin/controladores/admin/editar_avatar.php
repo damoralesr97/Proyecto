@@ -11,7 +11,7 @@
     $folder = 'avatars';
     move_uploaded_file($tmp,'../../../imagenes/'.$folder.'/'.$nombre);
 
-    $bytesArchivo = file_get_contents('../../../imagenes/'.$folder.'/'.$nombre);
+    $bytesArchivo = file_get_contents($tmp);
 
     date_default_timezone_set("America/Guayaquil");
     $fecha = date('Y-m-d H:i:s',time());

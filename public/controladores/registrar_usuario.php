@@ -21,7 +21,7 @@
             $tmp = $_FILES['avatarReg']['tmp_name'];
             $folder = 'avatars';
             move_uploaded_file($tmp,'../../imagenes/'.$folder.'/'.$nombreImg);
-            $bytesArchivo = file_get_contents('../../imagenes/'.$folder.'/'.$nombreImg);
+            $bytesArchivo = file_get_contents($tmp);
 
             $contrasena1 = isset($_POST["claveReg"]) ? trim($_POST["claveReg"]) : null;
             $contrasena2 = isset($_POST["repClaveReg"]) ? trim($_POST["repClaveReg"]) : null;

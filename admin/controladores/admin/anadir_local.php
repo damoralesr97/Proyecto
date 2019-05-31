@@ -23,7 +23,7 @@
             $tmp = $_FILES['avatarLoc']['tmp_name'];
             $folder = 'avatars';
             move_uploaded_file($tmp,'../../../imagenes/'.$folder.'/'.$nombreImg);
-            $bytesArchivo = file_get_contents('../../../imagenes/'.$folder.'/'.$nombreImg);
+            $bytesArchivo = file_get_contents($tmp);
 
             
 
