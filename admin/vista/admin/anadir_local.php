@@ -91,8 +91,7 @@
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
-                    <li><a href="">FACTURAS</a></li>
-                    <li><a href="">USUARIOS</a></li>
+                    <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
             </div>
@@ -114,7 +113,7 @@
                 <input type="text" name="direccionLoc" id="direccionLoc" class="campoED">
                 <input type="hidden" id="txtLat" name="txtLat">
                 <input type="hidden" id="txtLng" name="txtLng">
-                <div id="map_canvas" style="width: 80%; height: 500px;"></div>
+                <div id="map_canvas" style="width: 80%; height: 500px; margin: auto;"></div>
                 <label>Telefono</label>
                 <input type="text" name="telefonoLoc" id="telefonoLoc" class="campoED">
                 <label>Avatar</label>

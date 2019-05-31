@@ -16,55 +16,59 @@
     </head>
     <body>
     <header>
-    <div class="topHeader">
+        <div class="topHeader">
 
-<?php
-    $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
-    $stm = $conn->query($sqli);
-    while ($datos = $stm->fetch_object()){
-?>
-    <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
-<?php   
-    }
-?>
+            <?php
+                $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
+                $stm = $conn->query($sqli);
+                while ($datos = $stm->fetch_object()){
+            ?>
+                <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
+            <?php   
+                }
+            ?>
 
-<ul>
-<?php
-    $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
-    $result = $conn->query($sql);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
-                <ul>
-                    <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
-                    <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
-                </ul>
-            </li>";
-        }
-    }
-?>
-</ul>
-</div>
-<div class="encabezado">
-<nav class="menu">
+            <ul>
+            <?php
+                $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
+                $result = $conn->query($sql);
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
+                            <ul>
+                                <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
+                                <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
+                            </ul>
+                        </li>";
+                    }
+                }else{
+                    echo "<p>Ha ocurrido un error inesperdado</p>";
+                    echo "<p>".mysqli_error($conn)."</p>";
+                }
+                $conn->close();
+            ?>
+            </ul>
+            </div>
+            <div class="encabezado">
+            <nav class="menu">
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
                     <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
-</nav>
-</div>
-</header>
-<aside class="categorias">
-<h3>MENU</h3>
-<ul>
-    <li><a href="modificar_usuario.php?codigo=<?php echo $codigo?>">DETALLES DE LA CUENTA</a></li>
-    <li><a href="modificar_contrasena.php?codigo=<?php echo $codigo?>">CAMBIAR CONTRASEÑA</a></li>
-    <li><a href="">CERRAR SESION</a></li>
-</ul>
-</aside>
+            </nav>
+        </div>
+    </header>
+        <aside class="categorias">
+            <h3>MENU</h3>
+            <ul>
+                <li><a href="modificar_usuario.php?codigo=<?php echo $codigo?>">DETALLES DE LA CUENTA</a></li>
+                <li><a href="modificar_contrasena.php?codigo=<?php echo $codigo?>">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="">CERRAR SESION</a></li>
+            </ul>
+        </aside>
 
-<form class="formEditarPerfil" method="POST" action="../../controladores/admin/modificar_contrasena.php">
+<form class="formEditarPerfil" method="POST" action="../../controladores/admin/modificar_contrasena_usuario.php">
 <h4>EDITAR MI CONTRASEÑA</h4>
 <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigo ?>" class="campoED">
 <label>Contraseña nueva</label>

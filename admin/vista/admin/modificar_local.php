@@ -104,7 +104,6 @@
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
-                    <li><a href="">FACTURAS</a></li>
                     <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
@@ -135,7 +134,7 @@
             <input type="text" name="direccionLoc" id="direccionLoc" class="campoED" value="<?php echo $row['loc_direccion'] ?>">
             <input type="hidden" id="txtLat" name="txtLat" value="<?php echo $row['loc_latitud'] ?>">
             <input type="hidden" id="txtLng" name="txtLng" value="<?php echo $row['loc_longitud'] ?>">
-            <div id="map_canvas" style="width: 80%; height: 500px;"></div>
+            <div id="map_canvas" style="width: 80%; height: 500px; margin:auto;"></div>
             <label>Telefono</label>
             <input type="text" name="telefonoLoc" id="telefonoLoc" class="campoED" value="<?php echo $row['loc_telefono'] ?>">
             <label>Direccion de email</label>

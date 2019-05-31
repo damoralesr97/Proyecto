@@ -1,11 +1,11 @@
 <?php
     session_start();
-    $codigo=$_GET['codigo'];
-    $codigoUsr = $_SESSION['usuario'];
-    if(isset($_SESSION['usuario'])==null || $_SESSION['rol'] != "1"){
-        header("Location: ../../../public/vista/elegir_local.php");
+    $codigoUsr=$_SESSION['usuario'];
+    if(isset($_SESSION['usuario'])==null || $_SESSION['usuario'] == ""){
+        header("Location: /Practicas/Proyecto1/public/vista/elegir_local.php");
     }
     include '../../../config/conexionBD.php';
+    $loc=$_GET['codigo'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,8 +13,59 @@
         <meta charset="UTF-8">
         <title>Editar Perfil - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc"></script>
+        <script type="text/javascript">
+            function initialize(lat,lng) {
+                // Creating map object
+                var map = new google.maps.Map(document.getElementById('map_canvas'), {
+                    zoom: 14,
+                    center: new google.maps.LatLng(lat,lng),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                // creates a draggable marker to the given coords
+                var vMarker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat,lng),
+                    draggable: true
+                });
+
+                // adds a listener to the marker
+                // gets the coords when drag event ends
+                // then updates the input with the new coords
+                google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+                    //$("#txtLat").val(evt.latLng.lat().toFixed(6));
+                    //$("#txtLng").val(evt.latLng.lng().toFixed(6));
+                    document.getElementById('txtLat').value = evt.latLng.lat().toFixed(6)
+                    document.getElementById('txtLng').value = evt.latLng.lng().toFixed(6)
+
+                    map.panTo(evt.latLng);
+                });
+
+                // centers the map on markers coords
+                map.setCenter(vMarker.position);
+
+                // adds the marker on the map
+                vMarker.setMap(map);
+            }
+        </script>
+
     </head>
-    <body>
+
+    <?php
+        $sql = "SELECT * FROM local WHERE loc_codigo=$loc";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+    ?>
+    <body onload="initialize(<?php echo floatval($row['loc_latitud']) ?>,<?php echo floatval($row['loc_longitud']) ?>)">
+    <?php
+            }
+        }
+    ?>
     <header>
         <div class="topHeader">
 
@@ -34,7 +85,7 @@
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        echo "<li><a href='' class='nombreUser'><i>Administrador </i>".$row['usu_nick']."</a>
+                        echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
                             <ul>
                                 <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
                                 <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
@@ -45,7 +96,6 @@
                     echo "<p>Ha ocurrido un error inesperdado</p>";
                     echo "<p>".mysqli_error($conn)."</p>";
                 }
-                $conn->close();
             ?>
             </ul>
             </div>
@@ -57,38 +107,39 @@
                     <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
-        </div>
-    </header>
+            </div>
+        </header>
         <aside class="categorias">
-            <h3>MENU</h3>
+            <h3>LOCALES</h3>
             <ul>
-                <li><a href="modificar_usuario.php?codigo=<?php echo $codigo?>">DETALLES DE LA CUENTA</a></li>
-                <li><a href="modificar_contrasena.php?codigo=<?php echo $codigo?>">CAMBIAR CONTRASEÑA</a></li>
+                <li><a href="locales.php">DETALLES DE LOCALES</a></li>
+                <li><a href="anadir_local.php">AÑADIR LOCAL</a></li>
                 <li><a href="">CERRAR SESION</a></li>
             </ul>
         </aside>
 
         <?php
-        include '../../../config/conexionBD.php';
-        $sql1 = "SELECT * FROM usuario WHERE usu_codigo=$codigo";
-        $result = $conn->query($sql1);
-        if($result->num_rows > 0){
-            while($row1 = $result->fetch_assoc()){
+            $sql = "SELECT * FROM local WHERE loc_codigo=$loc";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
         ?>
-        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/modificar.php">
-            <h4>EDITAR MI PERFIL</h4>
-            <input type="hidden" name="codigo" id="codigo" value="<?php echo $codigo ?>" class="campoED">
-            <label>Nombres</label>
-            <input type="text" name="nombresEd" id="nombresEd" value="<?php echo $row1["usu_nombres"] ?>" class="campoED">
-            <label>Apellidos</label>
-            <input type="text" name="apellidosEd" id="apellidosEd" value="<?php echo $row1["usu_apellidos"] ?>" class="campoED">
-            <label>Nick</label>
-            <input type="text" name="nickEd" id="nickEd" value="<?php echo $row1["usu_nick"] ?>" class="campoED">
+
+        <form class="formEditarPerfil" method="POST" action="../../controladores/admin/eliminar_local.php">
+            <h4>ELIMINAR LOCAL</h4>
+            <input type="hidden" id="codigoLoc" name="codigoLoc" value="<?php echo $loc ?>">
+            <label>Nombre</label>
+            <input type="text" name="nombreLoc" id="nombresLoc" class="campoED" value="<?php echo $row['loc_nombre'] ?>" disabled>
+            <label>Direccion</label>
+            <input type="text" name="direccionLoc" id="direccionLoc" class="campoED" value="<?php echo $row['loc_direccion'] ?>" disabled>
+            <input type="hidden" id="txtLat" name="txtLat" value="<?php echo $row['loc_latitud'] ?>">
+            <input type="hidden" id="txtLng" name="txtLng" value="<?php echo $row['loc_longitud'] ?>">
+            <div id="map_canvas" style="width: 80%; height: 500px; margin:auto;"></div>
             <label>Telefono</label>
-            <input type="text" name="telefonoEd" id="telefonoEd" value="<?php echo $row1["usu_telefono"] ?>" class="campoED">
-            <label>Correo</label>
-            <input type="text" name="mailEd" id="mailEd" value="<?php echo $row1["usu_correo"] ?>" class="campoED">
-            <input type="submit" name="editar" id="editar" value="GUARDAR LOS CAMBIOS">
+            <input type="text" name="telefonoLoc" id="telefonoLoc" class="campoED" value="<?php echo $row['loc_telefono'] ?>" disabled>
+            <label>Direccion de email</label>
+            <input type="email" name="mailLoc" id="mailLoc" class="campoED" value="<?php echo $row['loc_correo'] ?>" disabled>
+            <input type="submit" name="editar" id="editar" value="ELIMINAR LOCAL">
         </form>
         <?php
             }
@@ -98,6 +149,7 @@
         }
         $conn->close();
         ?>
+
         <footer>
             <div class="contenidoPie">
                 <div class="infoPie">

@@ -49,7 +49,6 @@
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
-                    <li><a href="">FACTURAS</a></li>
                     <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
@@ -88,6 +87,7 @@
                             echo "<td>" .$row["usu_telefono"]."</td>";
                             echo "<td>" .$row["usu_correo"]."</td>";
                             echo "<td class='accion'><a href='modificar_usuario.php?codigo=".$row['usu_codigo']."'>Modificar</a></td>";
+                            echo "<td class='accion'><a href='modificar_contrasena_usuario.php?codigo=".$row['usu_codigo']."'>Modificar contrasena</a></td>";
                             echo "<td class='accion'><a href='../../controladores/admin/eliminar_usuario.php?codigo=".$row['usu_codigo']."'>Eliminar</a></td>";
                         }
                     }

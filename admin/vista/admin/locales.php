@@ -50,7 +50,6 @@
                 <ul>
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="locales.php">LOCALES</a></li>
-                    <li><a href="">FACTURAS</a></li>
                     <li><a href="usuarios.php">USUARIOS</a></li>
                 </ul>
             </nav>
@@ -87,9 +86,9 @@
                             echo "<td>" .$row["loc_correo"]."</td>";
                             echo "<td>" .$row["loc_telefono"]."</td>";
                             echo "<td>" .$row["loc_direccion"]."</td>";
-                            echo "<td class='accion'><a href='eliminar.php?codigo=".$row['loc_codigo']."'>Eliminar</a></td>";
+                            echo "<td class='accion'><a href='eliminar_local.php?codigo=".$row['loc_codigo']."'>Eliminar</a></td>";
                             echo "<td class='accion'><a href='modificar_local.php?codigo=".$row['loc_codigo']."'>Modificar</a></td>";
-                            echo "<td class='accion'><a href='cambiar_contrasena.php?codigo=".$row['loc_codigo']."'>Cambiar contrasena</a></td>";
+                            echo "<td class='accion'><a href='cambiar_contrasena_local.php?codigo=".$row['loc_codigo']."'>Cambiar contrasena</a></td>";
                         }
                     }
                 }else{

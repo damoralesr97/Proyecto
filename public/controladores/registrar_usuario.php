@@ -51,7 +51,7 @@
             
             //Cerrar la base de datos
             $conn->close();
-            echo"<a href='../vista/mi_cuenta.html'>Regresar</a>";
+            echo"<a href='../vista/mi_cuenta.php'>Regresar</a>";
         ?>
     </form>
     </body>
