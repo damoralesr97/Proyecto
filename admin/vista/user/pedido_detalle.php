@@ -36,43 +36,8 @@
         <meta charset="UTF-8">
         <title>Editar Perfil - Ferreteria</title>
         <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
-
-
-        <script>
-      function initMap() {
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var directionsService = new google.maps.DirectionsService;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 1,
-          center: {lat: -2.908447, lng: -79.007989}
-        });
-        directionsDisplay.setMap(map);
-
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
-      }
-
-      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        var selectedMode = document.getElementById('mode').value;
-        directionsService.route({
-          origin: {lat: <?php echo (float)$lto ?>, lng: <?php echo (float)$lno ?>},  // Haight.
-          destination: {lat: <?php echo (float)$ltd ?>, lng: <?php echo (float)$lnd ?>},  // Ocean Beach.
-          // Note that Javascript allows us to access the constant
-          // using square brackets and a string value as its
-          // "property."
-          travelMode: google.maps.TravelMode[selectedMode]
-        }, function(response, status) {
-          if (status == 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc&callback=initMap">
-    </script>
-
+        
+        
 
     </head>
 
@@ -198,6 +163,43 @@
             </select>
         </div>
         <div id="map" style="width: 100%; height: 500px;"></div>
+
+        <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoJ3ujl8XgJZMJ3H8Hfu4wXa41tY_Eozc&callback=initMap">
+    </script>
+
+        <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 1,
+          center: {lat: -2.908447, lng: -79.007989}
+        });
+        directionsDisplay.setMap(map);
+
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: <?php echo (float)$lto ?>, lng: <?php echo (float)$lno ?>},  // Haight.
+          destination: {lat: <?php echo (float)$ltd ?>, lng: <?php echo (float)$lnd ?>},  // Ocean Beach.
+          // Note that Javascript allows us to access the constant
+          // using square brackets and a string value as its
+          // "property."
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status == 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+
         </div>
 
 
