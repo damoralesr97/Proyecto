@@ -14,7 +14,7 @@
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn) . "<br>";
     }
-    echo "<a href='../../vista/local/facturas.php'>Regresar</a>";
+    header("Location: /Proyecto/admin/vista/local/facturas.php");
     $conn->close();
 
 ?>

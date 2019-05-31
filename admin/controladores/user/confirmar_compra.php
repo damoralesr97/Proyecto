@@ -35,6 +35,6 @@
         echo "Tuvimos un problema al procesar tu pedido";
         echo "Error: " .mysqli_error($conn);
     }
-    echo "<a href='../../vista/user/index.php'>Regresar</a>";
+    header("Location: /Proyecto/admin/vista/user/index.php");
 
 ?>

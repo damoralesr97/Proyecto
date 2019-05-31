@@ -25,5 +25,5 @@
         echo 'Error!!!';
     }
 
-    echo "<a href='../../vista/user/index.php'>Regresar</a>";
+    header("Location: /Proyecto/admin/vista/user/index.php");
 ?>

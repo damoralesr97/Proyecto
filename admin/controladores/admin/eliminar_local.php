@@ -32,7 +32,7 @@
             }else{
                 echo "Error: ".$sql."<br>".mysqli_error($conn)."<br>";
             }
-            echo "<a href='../../vista/admin/locales.php'>Regresar</a>";
+            header("Location: /Proyecto/admin/vista/admin/locales.php");
 
             $conn->close();
         ?>

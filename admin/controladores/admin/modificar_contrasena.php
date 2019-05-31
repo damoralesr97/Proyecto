@@ -30,7 +30,7 @@
                 echo "<p>Error: ".mysqli_error($conn)."</p>";
             }
             echo "<br>";
-            echo "<a href='../../vista/admin/usuarios.php'>Regresar</a>";
+            header("Location: /Proyecto/admin/vista/admin/usuarios.php");
 
             $conn->close();
         ?>

@@ -31,7 +31,7 @@
             }else{
                 echo "Error: ".$sql."<br>".mysqli_error($conn)."<br>";
             }
-            echo "<a href='../../vista/admin/index.php'>Regresar</a>";
+            header("Location: /Proyecto/admin/vista/admin/index.php");
 
             $conn->close();
         ?>

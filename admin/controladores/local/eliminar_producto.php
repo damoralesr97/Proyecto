@@ -15,6 +15,7 @@ if ($conn->query($sql) === TRUE) {
     echo "<p>Error: " . $sql . "<br>" . mysqli_error($conn) . "</p>";
 }
 echo "<a href='../../vista/local/productos.php'>Regresar</a>";
+header("Location: /Proyecto/admin/vista/local/productos.php");
 $conn->close();
 
 ?>

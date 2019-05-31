@@ -19,7 +19,7 @@
  } else {
  echo "Error: " . $sql . "<br>" . mysqli_error($conn) . "<br>";
  }
- echo "<a href='../../vista/local/productos.php'>Regresar</a>";
+ header("Location: /Proyecto/admin/vista/local/productos.php");
  $conn->close();
 
 ?>

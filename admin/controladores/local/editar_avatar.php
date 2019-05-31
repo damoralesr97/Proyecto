@@ -24,6 +24,5 @@
     }else{
         echo 'Error!!!';
     }
-
-    echo "<a href='../../vista/local/index.php'>Regresar</a>";
+    header("Location: /Proyecto/admin/vista/local/index.php");
 ?>

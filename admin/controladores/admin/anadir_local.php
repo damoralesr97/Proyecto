@@ -53,7 +53,7 @@
             
             //Cerrar la base de datos
             $conn->close();
-            echo"<a href='../../vista/admin/locales.php'>Regresar</a>";
+            header("Location: /Proyecto/admin/vista/admin/locales.php");
         ?>
     </form>
     </body>

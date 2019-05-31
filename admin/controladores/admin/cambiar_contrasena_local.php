@@ -29,7 +29,7 @@
                 echo "<p>Error: ".mysqli_error($conn)."</p>";
             }
             
-            echo "<a href='../../vista/admin/locales.php'>Regresar</a>";
+            header("Location: /Proyecto/admin/vista/admin/locales.php");
             $conn->close();
         ?>
         </form>

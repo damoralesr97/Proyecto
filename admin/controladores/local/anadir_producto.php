@@ -49,7 +49,7 @@
             
             //Cerrar la base de datos
             $conn->close();
-            echo"<a href='../../vista/local/productos.php'>Regresar</a>";
+            header("Location: /Proyecto/admin/vista/local/productos.php");
         ?>
     </form>
     </body>
