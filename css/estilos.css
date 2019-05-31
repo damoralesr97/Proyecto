@@ -843,3 +843,17 @@ body {
 .factMT td{
     padding: 5px;
 }
+
+.infLc{
+    clear: both;
+    float: left;
+    text-align: center;
+    width: 35%;
+    margin: 15px 10px;
+}
+
+.infLc label{
+    color: #E74C3C;
+    padding: 4px 40px;
+    border-bottom: 1px solid gray;
+}

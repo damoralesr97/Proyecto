@@ -1,25 +1,50 @@
 <?php
     session_start();
-    $_SESSION["local"];
-    include '../../config/conexionBD.php'
+    $codigoUsr = $_SESSION["usuario"];
+    include '../../../config/conexionBD.php';
 ?>
 <!Doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ferreteria - Home</title>
-        <link type="text/css" href="../../css/estilos.css" rel="stylesheet">
-        <script type="text/javascript" src="../../js/funciones.js"></script>
+        <title>Quienes Somos</title>
+        <link type="text/css" href="../../../css/estilos.css" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <div class="topHeader">
-                <a href="mi_cuenta.php" class="nombreUser">INICIAR SESION O REGISTRARME</a>
-            </div>
+    <header>
+        <div class="topHeader">
+                
+                <?php
+                    $sqli ="SELECT * FROM usuario WHERE usu_codigo='$codigoUsr'";
+                    $stm = $conn->query($sqli);
+                    while ($datos = $stm->fetch_object()){
+                ?>
+                    <img src="data:image/jpg; base64,<?php echo base64_encode($datos->usu_avatar) ?>">
+                <?php   
+                    }
+                ?>
+    
+                    <ul>
+                    <?php
+                        $sql = "SELECT * FROM usuario WHERE usu_codigo=$codigoUsr";
+                        $result = $conn->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_assoc()){
+                                echo "<li><a href='' class='nombreUser'><i>Hola </i>".$row['usu_nick']."</a>
+                                    <ul>
+                                        <li><a href='editar_perfil.php'>Editar mi perfil</a></li>
+                                        <li><a href='../../../config/cerrar_sesion.php'>Cerrar Sesion</a></li>
+                                    </ul>
+                                </li>";
+                            }
+                        }
+                    ?>
+                    </ul>
+                </div>
             <div class="encabezado">
                 <nav class="menu">
                     <ul>
-                        <li><a href="home.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
+                        <li><a href="index.php?codigo=<?php echo $_SESSION['local'] ?>">INICIO</a></li>
                         <li><a href="">NOSOTROS</a>
                             <ul>
                                 <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
@@ -36,67 +61,35 @@
                     <!--<a href="" onsubmit = >Buscar</a>-->
                 </div>
                 <div class="carrito">
-                    <img src="../../imagenes/iconos/carrito.png" alt="imgCarro">
+                    <img src="../../../imagenes/iconos/carrito.png" alt="imgCarro">
                     <a href="carrito.php">Carrito</a>
                 </div>
             </div>
         </header>
-            <aside class="categorias">
-                <h3>CATEGORIAS</h3>
-                <ul>
-                    <li><a href="acabados_casa.php">ACABADOS DE CASA</a></li>
-                    <li><a href="aditivos.php">ADITIVOS</a></li>
-                    <li><a href="basicos_cons.php">BASICOS DE LA CONSTRUCCION</a></li>
-                    <li><a href="electrico.php">ELECTRICO</a></li>
-                    <li><a href="ferreteria.php">FERRETERIA</a></li>
-                    <li><a href="hidro.php">HIDROSANITARIA</a></li>
-                    <li><a href="hogar.php">HOGAR</a></li>
-                    <li><a href="industria.php">INDUSTRIA</a></li>
-                </ul>
-            </aside>
-            <div id = "menuProd" class = "productos">
-                <?php             
-                      
-                    $sql = "SELECT * FROM producto WHERE pro_loc_codigo='".$_SESSION["local"]."' AND pro_cat_codigo=4";
-                    $result = $conn->query($sql);
-                    $i=0;
-                    if ($result->num_rows > 0) { 
-                            
-                        while($row = $result->fetch_assoc()) { 
-
-                            if($row["pro_eliminado"]!='S'){
-
-                            echo "<article class='contenidoProductos'>";
-
-                                $sqli ="SELECT pro_imagen FROM producto WHERE pro_codigo=$row[pro_codigo]";
-                                $stm = $conn->query($sqli);
-                                while ($datos = $stm->fetch_object()){
-                                    
-                                    echo "<a href='productoSelect.php?codigo=".$row['pro_codigo']."'><img id='imgProd' src='data:image/jpg; base64,".base64_encode($datos->pro_imagen)."'/></a>";
-                                }
-                                $i=$i+1;
-                                echo "<br>";        
-                                echo $row['pro_nombre']; 
-                                echo "<br>";     
-                                echo "$".$row['pro_precio']." INCLUYE IVA"; 
-                                echo "<br>";
-
-                            echo "</article>";                                             
-                            
-                            }      
-                        } 
-
-                    } else {                 
-                        echo "<tr>";                 
-                        echo "<td colspan='7'> No existen productos </td>";                 
-                        echo "</tr>"; 
-            
-                    }
-                        
-                    $conn->close();          
-                ?>
+            <div>
+                <article>
+                    <div>
+                            <article class="imagenesContenido">
+                            <img id = "h1" src="../../../imagenes/img/h1.jpeg" alt="Imagenes promociones" class="imagenCabecera">
+                        </article>
+                    </div>
+                    <h1 class="tituloContenido">Historia</h1>
+                    
+                    <p class="contenidoTexto1">
+                    En el año 2000 en la ciudad de Cuenca, 
+                    una visionaria pareja  abren las puertas de su pequeño negocio , dedicado a comercializar productos de ferretería y materiales
+                    de construcción que permitan satisfacer las necesidades de la creciente demanda de esta industria en la ciudad.
+                   <br><br>
+                    Es importante señalar además, que nuestros servicios están fortalecidos por contar con un stock permanente de 
+                    los principales productos de nuestra comercialización.
+                   <br><br>
+                    Con el transcurso del tiempo de nuestra empresa se ha convertido en una de las empresas líderes en la comercialización de materiales 
+                    de construcción, ferretería y productos para el hogar en el mercado ecuatoriano.
+                    <br>
+                    </p>
+                </article>
+                
             </div>
-
             <footer>
                 <div class="contenidoPie">
                     <div class="infoPie">

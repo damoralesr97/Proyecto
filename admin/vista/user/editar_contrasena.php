@@ -52,11 +52,11 @@
                             <ul>
                                 <li><a href="quienesSomos.php">QUIENES SOMOS</a></li>
                                 <li><a href="misionVision.php">MISION Y VISION</a></li>
-                                <li><a href="">HISTORIA</a></li>
+                                <li><a href="historia.php">HISTORIA</a></li>
                             </ul>
                         </li>
                         <li><a href="productos.php">PRODUCTOS</a></li>
-                        <li><a href="">CONTACTO</a></li>
+                        <li><a href="contactanos.php">CONTACTO</a></li>
                     </ul>
                 </nav>
                 <div class="busqueda">
